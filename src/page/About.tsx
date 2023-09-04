@@ -27,31 +27,27 @@ const About = (props: Props) => {
                }}>
                <img
                   style={{
+                     zIndex: 2,
                      opacity: isImageLoaded ? 1 : 0,
                      transition: "opacity 1s ease-in-out",
                      position: "absolute"
                   }}
                   ref={ref}
                   src="/atlas/atlas.webp"
-                  onLoad={e =>
-                     setTimeout(() => {
-                        setImageLoaded(true)
-                     }, 1000)
-                  }
+                  onLoad={e => setImageLoaded(true)}
                   alt="Atlas"
                />
             </div>
-            {!isImageLoaded && (
-               <LoadingPlaceholder
-                  style={{
-                     top: "400px",
-                     position: "absolute",
-                     height: "400px",
-                     width: "400px"
-                  }}>
-                  Loading image...
-               </LoadingPlaceholder>
-            )}
+            <LoadingPlaceholder
+               style={{
+                  zIndex: 1,
+                  top: "400px",
+                  position: "absolute",
+                  height: "400px",
+                  width: "400px"
+               }}>
+               Loading image...
+            </LoadingPlaceholder>
          </div>
       </Grid_1>
    )
