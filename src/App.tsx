@@ -7,25 +7,29 @@ import useStore from "@state/store"
 import UI from "@dom/UI"
 import { useScrollSystem } from "@lib/useScrollSystem"
 import { lazy } from "react"
+import useFontFaceObserver from "use-font-face-observer"
 
 const Home = lazy(() => import("./page/Home"))
 const About = lazy(() => import("./page/About"))
 
 export const App = () => {
    const ref = useScrollSystem(useStore)
+
    return (
       <>
          <Router>
-            <Suspense fallback={<div>Loading...</div>}>
-               <Route
-                  path="/"
-                  component={Home}
-               />
-               <Route
-                  path="/about"
-                  component={About}
-               />
-            </Suspense>
+            <FontObserverWrapper>
+               <Suspense fallback={<div>Loading...</div>}>
+                  <Route
+                     path="/"
+                     component={Home}
+                  />
+                  <Route
+                     path="/about"
+                     component={About}
+                  />
+               </Suspense>
+            </FontObserverWrapper>
          </Router>
 
          {/* <CanvasWrapper ref={ref}>
@@ -34,6 +38,18 @@ export const App = () => {
          <UI text={text} /> */}
       </>
    )
+}
+
+const FontObserverWrapper = ({ children }) => {
+   const isFontListLoaded = useFontFaceObserver([
+      {
+         family: "WONKY"
+      }
+   ])
+
+   if (!isFontListLoaded) {
+      return null
+   } else return children
 }
 
 const CanvasWrapper = styled.div`

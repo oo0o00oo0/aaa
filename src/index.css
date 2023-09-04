@@ -1,3 +1,7 @@
+@font-face {
+  font-family: WONKY;
+  src: url(/fonts/WONKY_Trial-Regular.woff2)
+}
 
 /** https://www.joshwcomeau.com/css/custom-css-reset/ */
 
@@ -94,5 +98,5 @@ h6 {
 
 .test {
   font: 4vw WONKY;
-  color: white;
+  color: rgb(24, 24, 24);
 }
