@@ -7,7 +7,7 @@ type Props = {}
 const About = (props: Props) => {
    return (
       <Grid_1>
-         <Header>ABOUT</Header>
+         <Header>ABOUT123</Header>
       </Grid_1>
    )
 }
