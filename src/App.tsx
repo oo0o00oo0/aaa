@@ -15,19 +15,45 @@ const About = lazy(() => import("./page/About"))
 export const App = () => {
    const ref = useScrollSystem(useStore)
 
+   const [text, setText] = React.useState(false)
+
+   React.useEffect(() => {
+      addEventListener("scroll", e => {
+         if (window.scrollY > 400) {
+            setText(true)
+         }
+         if (window.scrollY < 400) {
+            setText(false)
+         }
+         // console.log("scroll", window.scrollY)
+      })
+   }, [])
+   React.useEffect(() => {
+      console.log("TEEXT", text)
+   }, [text])
+
    return (
       <>
          <Router>
             <FontObserverWrapper>
                <Suspense fallback={<div>Loading...</div>}>
-                  <Route
+                  <div
+                     style={{
+                        position: "fixed"
+                     }}>
+                     {!text && <Home />}
+
+                     {text && <About />}
+
+                     {/* <Route
                      path="/"
                      component={Home}
                   />
                   <Route
                      path="/about"
                      component={About}
-                  />
+                  /> */}
+                  </div>
                </Suspense>
             </FontObserverWrapper>
          </Router>
@@ -36,6 +62,10 @@ export const App = () => {
             <TCanvas count={COUNT} />
          </CanvasWrapper>
          <UI text={text} /> */}
+         <div
+            style={{
+               height: "300vh"
+            }}></div>
       </>
    )
 }

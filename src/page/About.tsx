@@ -8,6 +8,7 @@ const About = (props: Props) => {
    return (
       <Grid_1>
          <Header>ABOUT123</Header>
+         <img src="/atlas/atlas.webp"></img>
       </Grid_1>
    )
 }
