@@ -1,0 +1,18 @@
+{
+    "short_name": "LUNA_TEMPLATE_SHORT",
+    "name": "LUNA_TEMPLATE_NAME",
+    "icons": [
+      {
+        "src": "luna_logo.png",
+        "sizes": "128x128 64x64 32x32 24x24 16x16",
+        "type": "image/png"
+      }
+   
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "orientation": "portrait",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
+  }
+  
