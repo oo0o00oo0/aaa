@@ -34,8 +34,8 @@ body,
   font-family: NFC;
   height: 100%;
   font-size: 1vw;
-  /* background-color: #eaeaea; */
-  background-color: #272727;
+  background-color: #eaeaea;
+  /* background-color: #272727; */
 }
 
 /*
@@ -44,7 +44,6 @@ body,
   5. Improve text rendering
 */
 body {
-  background-color: #272727;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   /* min-height: 300vh; */

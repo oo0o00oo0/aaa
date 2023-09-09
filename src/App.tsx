@@ -1,6 +1,6 @@
 //https://codesandbox.io/s/react-spring-typescript-968b1?file=/src/components/AnimatedRoutes.tsx
 import React, { Suspense } from "react"
-import { Router, Route } from "wouter"
+import { Router, Route, useLocation } from "wouter"
 import styled from "styled-components"
 import TCanvas from "./components/canvas/TCanvas/TCanvas"
 import useStore from "@state/store"
@@ -8,29 +8,15 @@ import UI from "@dom/UI"
 import { useScrollSystem } from "@lib/useScrollSystem"
 import { lazy } from "react"
 import useFontFaceObserver from "use-font-face-observer"
+import useScrollNavigation from "./lib/useScrollNavigation"
 
 const Home = lazy(() => import("./page/Home"))
 const About = lazy(() => import("./page/About"))
+const Programmes = lazy(() => import("./page/Programmes"))
 
 export const App = () => {
-   const ref = useScrollSystem(useStore)
-
-   const [text, setText] = React.useState(false)
-
-   React.useEffect(() => {
-      addEventListener("scroll", e => {
-         if (window.scrollY > 400) {
-            setText(true)
-         }
-         if (window.scrollY < 400) {
-            setText(false)
-         }
-         // console.log("scroll", window.scrollY)
-      })
-   }, [])
-   React.useEffect(() => {
-      console.log("TEEXT", text)
-   }, [text])
+   // const ref = useScrollSystem(useStore)
+   const page = useScrollNavigation(["/", "/about", "/programmes"])
 
    return (
       <>
@@ -41,27 +27,27 @@ export const App = () => {
                      style={{
                         position: "fixed"
                      }}>
-                     {!text && <Home />}
-
-                     {text && <About />}
-
-                     {/* <Route
-                     path="/"
-                     component={Home}
-                  />
-                  <Route
-                     path="/about"
-                     component={About}
-                  /> */}
+                     <Route
+                        path="/"
+                        component={Home}
+                     />
+                     <Route
+                        path="/about"
+                        component={About}
+                     />
+                     <Route
+                        path="/programmes"
+                        component={Programmes}
+                     />
                   </div>
                </Suspense>
             </FontObserverWrapper>
          </Router>
 
          {/* <CanvasWrapper ref={ref}>
-            <TCanvas count={COUNT} />
-         </CanvasWrapper>
-         <UI text={text} /> */}
+            <TCanvas count={5} />
+         </CanvasWrapper> */}
+         <UI text={"12345"} />
          <div
             style={{
                height: "300vh"
