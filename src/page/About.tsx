@@ -13,7 +13,7 @@ const About = (props: Props) => {
       <Grid_1>
          <Header>ABOUT123</Header>
 
-         <div
+         {/* <div
             style={{
                top: "40px",
                position: "absolute"
@@ -48,7 +48,7 @@ const About = (props: Props) => {
                }}>
                Loading image...
             </LoadingPlaceholder>
-         </div>
+         </div> */}
       </Grid_1>
    )
 }

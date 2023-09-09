@@ -36,10 +36,6 @@ const Moprhings = ({ count }) => {
 
    const tempSizeHeightPercentage = 0.5
 
-   React.useEffect(() => {
-      console.log(viewport)
-   }, [viewport])
-
    return (
       <>
          {/* <group position={[0, 0, 0]}>

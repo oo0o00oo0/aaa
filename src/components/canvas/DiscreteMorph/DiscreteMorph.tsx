@@ -1,41 +1,31 @@
 import React from "react"
 import * as THREE from "three"
 import { useThree } from "@react-three/fiber"
+import { gsap, Linear } from "gsap"
 import SimpleShaderMaterial from "@canvas/SimpleShaderMaterial"
 import useStore from "@state/store"
-import { gsap, Linear } from "gsap"
 import MorphBufferGeometry from "../MorphBufferGeometry/MorphBufferGeometry"
+import { DescGsapOptions, DiscreteMorphProps } from "./types"
 
-interface Props {
-   textures: THREE.Texture[];
-   dataTextures: THREE.DataTexture[];
-   count: number;
-   // debounce?: number;
-}
-
-interface StoreState {
-   SCROLL_VALUE: number;
-}
-
-type GsapOptions = gsap.TweenVars
-
-const DiscreteMorph: React.FC<Props> = ({
+const DiscreteMorph: React.FC<DiscreteMorphProps> = ({
    textures,
    dataTextures,
    count
-   // debounce = 0
 }) => {
    const invalidate = useThree(s => s.invalidate)
 
-   const [transitionId, setTransitionId] = React.useState(0)
+   const scrollValueRef = React.useRef<number>(0)
 
+   const [transitionId, setTransitionId] = React.useState(0)
    const [animating, setAnimating] = React.useState(false)
 
    const meshRef = React.useRef<THREE.Mesh>(null)
    const shaderRef = React.useRef<THREE.ShaderMaterial>(null)
 
    React.useLayoutEffect(() => {
-      updateTransitionId(setTransitionId, count, 0)
+      // TODO DOES NOT SYNC STATE ON PAGE LOAD
+      // const initialScrollValue = useStore.getState().SCROLL_VALUE
+      // scrollValueRef.current = initialScrollValue
 
       // shaderRef.current.uniforms.uTexture_0.value = textures[1]
       // shaderRef.current.uniforms.uTexture_1.value = textures[1]
@@ -45,15 +35,12 @@ const DiscreteMorph: React.FC<Props> = ({
       }
    }, [])
 
-   const scrollValueRef = React.useRef(0)
-
    React.useEffect(() => {
       const subscription = useStore.subscribe(
          state => state.SCROLL_VALUE,
          scrollValue => {
             scrollValueRef.current = scrollValue
             if (animating) {
-               //@ts-ignore
                return
             }
             updateTransitionId(setTransitionId, count, scrollValue)
@@ -64,10 +51,6 @@ const DiscreteMorph: React.FC<Props> = ({
    }, [count, animating])
 
    React.useEffect(() => {
-      if (animating) {
-         return
-      }
-
       transition(
          transitionId,
          shaderRef,
@@ -100,6 +83,7 @@ const updateTransitionId = (
    SCROLL_VALUE: number
 ): void => {
    const textureIndex = Math.round(SCROLL_VALUE * count)
+
    setId(textureIndex % count)
 }
 
@@ -111,7 +95,7 @@ const transition = (
    dataTextures: THREE.DataTexture[],
    setAnimating
 ): void => {
-   const gsapOptions: GsapOptions = {
+   const gsapOptions: DescGsapOptions = {
       onStart: () => {
          setAnimating(true)
          if (shaderRef.current.uniforms.uBlend.value < 0.5) {
@@ -129,6 +113,7 @@ const transition = (
          }
       },
       ease: Linear.easeOut,
+      // delay: 500,
       duration: 0.25,
       onComplete: () => {
          setAnimating(false)
@@ -142,25 +127,3 @@ const transition = (
       }
    })
 }
-// import { debounce as db } from "lodash-es"
-
-// React.useEffect(() => {
-//    const unsubscribe = useStore.subscribe(
-//       state => state.SCROLL_VALUE,
-//       debouncedCallback
-//    )
-
-//    return () => {
-//       unsubscribe()
-//       debouncedCallback.cancel()
-//    }
-// }, [count, invalidate])
-
-// const debouncedCallback = React.useCallback(
-//    db(
-//       (s: number) => updateTransitionId(setTransitionId, count, s),
-//       debounce,
-//       { leading: true, trailing: true }
-//    ),
-//    [count]
-// )

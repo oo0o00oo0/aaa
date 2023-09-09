@@ -20,7 +20,7 @@ export const App = () => {
 
    return (
       <>
-         {/* <Router>
+         <Router>
             <FontObserverWrapper>
                <Suspense fallback={<div>Loading...</div>}>
                   <div
@@ -43,7 +43,7 @@ export const App = () => {
                </Suspense>
             </FontObserverWrapper>
             <Navigator />
-         </Router> */}
+         </Router>
 
          <CanvasWrapper ref={ref}>
             <TCanvas count={3} />
