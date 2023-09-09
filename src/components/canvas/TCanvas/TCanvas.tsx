@@ -24,7 +24,6 @@ export const TCanvas = ({ count }) => {
          dpr={window.devicePixelRatio}>
          <Suspense fallback={null}>
             <Moprhings count={count} />
-            {/* <Perf /> */}
          </Suspense>
       </Canvas>
    )
@@ -58,7 +57,7 @@ const Moprhings = ({ count }) => {
                1
             ]}>
             <DiscreteMorph
-               debounce={10}
+               // debounce={250}
                count={count}
                dataTextures={DATA_TEXTURES}
                textures={textures}

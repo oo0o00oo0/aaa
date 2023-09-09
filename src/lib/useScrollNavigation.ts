@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useLayoutEffect } from "react"
 import { useLocation } from "wouter"
 
 const useScrollNavigation = pages => {
@@ -30,6 +30,14 @@ const useScrollNavigation = pages => {
    useEffect(() => {
       setLocation(page)
    }, [page, setLocation])
+
+   useLayoutEffect(() => {
+      const currentPageIndex = pages.findIndex(p => p === location)
+
+      const scrollPosition = currentPageIndex * sectionHeight
+
+      window.scrollTo(0, scrollPosition)
+   }, [])
 
    return page
 }

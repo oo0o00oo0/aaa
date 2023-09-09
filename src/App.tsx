@@ -9,18 +9,18 @@ import { useScrollSystem } from "@lib/useScrollSystem"
 import { lazy } from "react"
 import useFontFaceObserver from "use-font-face-observer"
 import useScrollNavigation from "./lib/useScrollNavigation"
+import Programmes from "./page/Programmes"
 
 const Home = lazy(() => import("./page/Home"))
 const About = lazy(() => import("./page/About"))
-const Programmes = lazy(() => import("./page/Programmes"))
 
 export const App = () => {
-   // const ref = useScrollSystem(useStore)
-   const page = useScrollNavigation(["/", "/about", "/programmes"])
+   const ref = useScrollSystem(useStore)
+   console.log("render app")
 
    return (
       <>
-         <Router>
+         {/* <Router>
             <FontObserverWrapper>
                <Suspense fallback={<div>Loading...</div>}>
                   <div
@@ -42,18 +42,25 @@ export const App = () => {
                   </div>
                </Suspense>
             </FontObserverWrapper>
-         </Router>
+            <Navigator />
+         </Router> */}
 
-         {/* <CanvasWrapper ref={ref}>
-            <TCanvas count={5} />
-         </CanvasWrapper> */}
-         <UI text={"12345"} />
+         <CanvasWrapper ref={ref}>
+            <TCanvas count={3} />
+         </CanvasWrapper>
+         <UI text={"123"} />
          <div
             style={{
                height: "300vh"
             }}></div>
       </>
    )
+}
+
+function Navigator() {
+   const page = useScrollNavigation(["/", "/about", "/programmes"])
+
+   return null
 }
 
 const FontObserverWrapper = ({ children }) => {
