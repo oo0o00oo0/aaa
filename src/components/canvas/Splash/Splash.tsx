@@ -45,51 +45,64 @@ function Splash() {
 
    return (
       <Wr>
+         <Bar></Bar>
+         <Bar2></Bar2>
          <Nav ref={navRef}>
             {"AAA".split("").map((letter, letterIndex) => (
-               <span
-                  key={letterIndex}
-                  style={{ display: "inline-block", opacity: 0 }}>
+               <div
+                  style={{ display: "inline-block" }}
+                  key={letterIndex}>
                   {letter === " " ? "\u00A0" : letter}
-               </span>
+               </div>
             ))}
          </Nav>
          <Title ref={titleRef}>
             {"Academy of Artificial^Arts".split("^").map((line, lineIndex) => (
                <React.Fragment key={lineIndex}>
                   {line.split("").map((letter, letterIndex) => (
-                     <span
-                        key={letterIndex}
-                        style={{ display: "inline-block" }}>
+                     <span key={letterIndex}>
                         {letter === " " ? "\u00A0" : letter}
                      </span>
                   ))}
-                  {lineIndex === 0 && <br />}{" "}
+                  {lineIndex === 0 && <br />}
                </React.Fragment>
             ))}
          </Title>
       </Wr>
    )
 }
-const Header = styled.h1`
-   font-size: 4.5rem;
+
+const Bar2 = styled.div`
+   top: 0;
+   left: 0;
+   z-index: 9;
+   position: fixed;
+   height: 8.5rem;
+   width: 30%;
+   background-color: #eaeaead6;
+`
+const Bar = styled.div`
+   top: 8.5rem;
+   left: 0;
+   z-index: 9;
+   position: fixed;
+   height: 4.5rem;
+   width: 30%;
+   background-image: linear-gradient(to top, rgba(255, 0, 0, 0), #eaeaead6);
 `
 
 const Title = styled.div`
+   z-index: 9;
    font-size: 4.5rem;
    font-family: Cormorant;
    position: fixed;
-   color: #c1140a;
-   top: 2vw;
-   /* display: flex; */
 `
 
 const Nav = styled.div`
+   z-index: 9;
+   position: absolute;
    font-size: 4.5rem;
    font-family: WONKY;
-   color: #c1140a;
-   position: fixed;
-   top: 2vw;
 `
 
 const Wr = styled.div`
@@ -97,9 +110,7 @@ const Wr = styled.div`
    height: 100%;
    width: 100%;
    position: fixed;
-   display: flex;
-   justify-content: flex-start;
-   align-items: flex-start;
+   color: #c1140a;
 `
 
 export default Splash

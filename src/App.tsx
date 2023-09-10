@@ -85,7 +85,8 @@ const FontObserverWrapper = ({ children }) => {
 }
 
 const CanvasWrapper = styled.div`
-   z-index: -1;
+   pointer-events: none;
+   /* z-index: 2; */
    box-sizing: border-box;
    position: fixed;
    top: 0;

@@ -1,3 +1,22 @@
+function cubicBezier(p0, p1, p2, p3, t) {
+   const u = 1 - t
+   const tt = t * t
+   const uu = u * u
+   const uuu = uu * u
+   const ttt = tt * t
+   return uuu * p0 + 3 * uu * t * p1 + 3 * u * tt * p2 + ttt * p3
+}
+
+function piecewiseBezier(t) {
+   const holdStart = 0.8
+
+   if (t < holdStart) {
+      return cubicBezier(0, 0.1, 0.9, 1, t / holdStart)
+   } else {
+      return 1
+   }
+}
+
 export const updateShader = (
    shaderRef: React.RefObject<THREE.ShaderMaterial>,
    textures: THREE.Texture[],
@@ -22,7 +41,10 @@ export const updateShader = (
       dataTextures[(textureIndex + 1) % count]
 
    const blendFactor = SCROLL_VALUE * count - textureIndex
-   shaderRef.current.uniforms.uBlend.value = blendFactor
+
+   // console.log(blendFactor, piecewiseBezier(blendFactor))
+
+   shaderRef.current.uniforms.uBlend.value = piecewiseBezier(blendFactor)
 
    invalidate()
 }

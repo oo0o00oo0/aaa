@@ -20,7 +20,7 @@ function Layout({ children }) {
 export default Layout
 
 const Grid = styled.div`
-   padding: 5vw;
+   padding: 2vw;
    opacity: 0;
    font-size: 2rem;
    display: grid;
