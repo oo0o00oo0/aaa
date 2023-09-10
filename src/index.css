@@ -2,6 +2,7 @@
   font-family: WONKY;
   src: url(/fonts/WONKY_Trial-Regular.woff2)
 }
+
 @font-face {
   font-family: Cormorant;
   src: url(/fonts/Cormorant-Light.otf)
@@ -30,16 +31,13 @@
   3. Allow percentage-based heights in the application
 */
 
-
-
 html,
 body,
 #app {
-  font-family: NFC;
+  font-family: Cormorant;
   height: 100%;
   font-size: 1vw;
   background-color: #eaeaea;
-  /* background-color: #272727; */
 }
 
 /*
@@ -50,13 +48,8 @@ body,
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  /* min-height: 300vh; */
 }
 
-
-/* body::-webkit-scrollbar{
-  display: none;
-} */
 /*
   6. Improve media defaults
 */
@@ -97,9 +90,4 @@ h6 {
 */
 #app {
   isolation: isolate;
-}
-
-.test {
-  font: 4vw WONKY;
-  color: rgb(24, 24, 24);
 }

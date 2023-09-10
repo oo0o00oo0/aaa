@@ -1,14 +1,13 @@
 export const updateShader = (
-   shaderRef,
-   textures,
-   dataTextures,
-   SCROLL_VALUE,
-   invalidate,
-   count,
-   opacity
+   shaderRef: React.RefObject<THREE.ShaderMaterial>,
+   textures: THREE.Texture[],
+   dataTextures: THREE.DataTexture[],
+   SCROLL_VALUE: number,
+   invalidate: () => void,
+   count: number,
+   opacity: number[]
 ) => {
    const textureIndex = Math.floor(SCROLL_VALUE * count)
-
    shaderRef.current.uniforms.uOpacity_0.value = opacity[textureIndex % count]
    shaderRef.current.uniforms.uOpacity_1.value =
       opacity[(textureIndex + 1) % count]
@@ -23,7 +22,6 @@ export const updateShader = (
       dataTextures[(textureIndex + 1) % count]
 
    const blendFactor = SCROLL_VALUE * count - textureIndex
-
    shaderRef.current.uniforms.uBlend.value = blendFactor
 
    invalidate()
