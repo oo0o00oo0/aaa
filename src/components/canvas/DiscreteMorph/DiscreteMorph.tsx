@@ -7,7 +7,7 @@ import useStore from "@state/store"
 import MorphBufferGeometry from "../MorphBufferGeometry/MorphBufferGeometry"
 import { DescGsapOptions, DiscreteMorphProps } from "./types"
 
-var checkScrollSpeed = (function (settings) {
+const checkScrollSpeed = (function (settings) {
    settings = settings || {}
 
    var lastPos,
@@ -26,7 +26,6 @@ var checkScrollSpeed = (function (settings) {
    return function () {
       newPos = window.scrollY
       if (lastPos != null) {
-         // && newPos < maxScroll
          delta = newPos - lastPos
       }
       lastPos = newPos
@@ -39,8 +38,7 @@ var checkScrollSpeed = (function (settings) {
 const DiscreteMorph: React.FC<DiscreteMorphProps> = ({
    textures,
    dataTextures,
-   count,
-   scrolly
+   count
 }) => {
    const invalidate = useThree(s => s.invalidate)
    const scrollValueRef = React.useRef<number>(0)
@@ -71,23 +69,18 @@ const DiscreteMorph: React.FC<DiscreteMorphProps> = ({
             if (animating) {
                return
             }
-            if (!scrolly) {
-               updateShader(
-                  shaderRef,
-                  textures,
-                  dataTextures,
-                  scrollValue,
-                  invalidate,
-                  count
-               )
-            } else {
-               updateTransitionId(setTransitionId, count, scrollValue)
-               // ...your updateShader function parameters here
-            }
-
-            // scrollValueRef.current = scrollValue
-
-            // updateTransitionId(setTransitionId, count, scrollValue)
+            // if (!scrolly) {
+            updateShader(
+               shaderRef,
+               textures,
+               dataTextures,
+               scrollValue,
+               invalidate,
+               count
+            )
+            // } else {
+            //    updateTransitionId(setTransitionId, count, scrollValue)
+            // }
          }
       )
 
@@ -124,11 +117,6 @@ const updateShader = (
    count
 ) => {
    const textureIndex = Math.floor(SCROLL_VALUE * count)
-
-   console.log(textureIndex)
-
-   // shaderRef.current.uniforms.uTexture_0.value = textures[0]
-   // shaderRef.current.uniforms.uTexture_1.value = textures[0]
 
    //MULTI TEXTURES
    shaderRef.current.uniforms.uTexture_0.value = textures[textureIndex % count]
@@ -172,7 +160,6 @@ const transition = (
    const gsapOptions: DescGsapOptions = {
       onStart: () => {
          setAnimating(true)
-         console.log("T INDEX", index)
          if (shaderRef.current.uniforms.uBlend.value < 0.5) {
             UNIFORMS.uTexture_1.value = textures[index]
 

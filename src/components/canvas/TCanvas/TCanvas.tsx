@@ -1,16 +1,12 @@
-import { Canvas, extend, useThree } from "@react-three/fiber"
-import React, { Suspense } from "react"
+import { Canvas, useThree } from "@react-three/fiber"
+import { Suspense } from "react"
 import DiscreteMorph from "@canvas/DiscreteMorph"
-import {
-   DoubleSide,
-   OrthographicCamera as OrthographicCameraImpl,
-   Vector3
-} from "three"
+import { Vector3 } from "three"
 
 import { morphData } from "@src/data/morph_data"
 import { useAssets } from "@src/lib/useAssets"
 
-export const TCanvas = ({ count, scrolly }) => {
+export const TCanvas = ({ count }) => {
    return (
       <Canvas
          frameloop="demand"
@@ -21,21 +17,18 @@ export const TCanvas = ({ count, scrolly }) => {
          }}
          dpr={window.devicePixelRatio}>
          <Suspense fallback={null}>
-            <Moprhings
-               count={count}
-               scrolly={scrolly}
-            />
+            <Moprhings count={count} />
          </Suspense>
       </Canvas>
    )
 }
 
-const Moprhings = ({ count, scrolly }) => {
+const Moprhings = ({ count }) => {
    const { textures, DATA_TEXTURES } = useAssets(morphData)
 
    const { viewport } = useThree()
 
-   const tempSizeHeightPercentage = 0.4
+   const tempSizeHeightPercentage = 1
 
    return (
       <group
@@ -45,8 +38,6 @@ const Moprhings = ({ count, scrolly }) => {
             1
          ]}>
          <DiscreteMorph
-            scrolly={scrolly}
-            // debounce={250}
             count={count}
             dataTextures={DATA_TEXTURES}
             textures={textures}

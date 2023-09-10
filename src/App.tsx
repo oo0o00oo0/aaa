@@ -9,37 +9,41 @@ import { lazy } from "react"
 import useFontFaceObserver from "use-font-face-observer"
 import useScrollNavigation from "./lib/useScrollNavigation"
 import Programmes from "./page/Programmes"
+import { ReactLenis, useLenis } from "@studio-freight/react-lenis"
+import Div100vh from "react-div-100vh"
 
 const Home = lazy(() => import("./page/Home"))
 const About = lazy(() => import("./page/About"))
 const Contact = lazy(() => import("./page/Contact"))
 
 const pages = ["/", "/about", "/programmes", "/Contact"]
+
 export const App = () => {
    const ref = useScrollSystem(useStore)
-   useScrollNavigation(pages)
-
-   const scrolly = false
+   const scrolly = true
 
    return (
       <>
-         <div
-            ref={ref}
-            style={{
-               height: `${(pages.length + 1) * 100}vh`
-            }}>
-            <Router>
-               <FontObserverWrapper>
-                  {scrolly ? <ScrollLayout /> : <RouteLayout />}
-               </FontObserverWrapper>
-            </Router>
-         </div>
+         <Div100vh>
+            <ReactLenis
+               options={{}}
+               root>
+               <div
+                  ref={ref}
+                  style={{
+                     height: `${(pages.length + (scrolly ? 0 : 1)) * 100}vh`
+                  }}>
+                  <Router>
+                     <FontObserverWrapper>
+                        <ScrollLayout /> :
+                     </FontObserverWrapper>
+                  </Router>
+               </div>
+            </ReactLenis>
+         </Div100vh>
 
          <CanvasWrapper>
-            <TCanvas
-               count={pages.length}
-               scrolly={scrolly}
-            />
+            <TCanvas count={pages.length} />
          </CanvasWrapper>
       </>
    )
@@ -66,7 +70,7 @@ function ScrollLayout() {
 
 function RouteLayout() {
    return (
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Fragment>
          <PageWr style={{ position: "fixed" }}>
             <Route
                path="/"
@@ -91,7 +95,7 @@ function RouteLayout() {
                component={Contact}
             />
          </PageWr>
-      </React.Suspense>
+      </React.Fragment>
    )
 }
 
@@ -116,6 +120,7 @@ const FontObserverWrapper = ({ children }) => {
 }
 
 const CanvasWrapper = styled.div`
+   z-index: -1;
    box-sizing: border-box;
    position: fixed;
    top: 0;

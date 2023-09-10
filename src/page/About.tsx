@@ -1,6 +1,6 @@
+import Layout from "@src/layout/Layout"
 import React, { useState } from "react"
 import styled from "styled-components"
-import { Grid_1 } from "@src/layout/layout"
 
 type Props = {}
 
@@ -10,8 +10,8 @@ const About = (props: Props) => {
    const ref = React.useRef<HTMLImageElement>(null)
 
    return (
-      <Grid_1>
-         <Header>ABOUT123</Header>
+      <Layout>
+         <Header>ABOUT</Header>
 
          {/* <div
             style={{
@@ -49,13 +49,15 @@ const About = (props: Props) => {
                Loading image...
             </LoadingPlaceholder>
          </div> */}
-      </Grid_1>
+      </Layout>
    )
 }
 
 const Header = styled.h1`
    grid-area: header;
    font-family: WONKY;
+
+   grid-row: 1 / 2;
 `
 
 const LoadingPlaceholder = styled.div`

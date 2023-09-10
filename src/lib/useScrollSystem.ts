@@ -1,41 +1,49 @@
 import React from "react"
+import { ReactLenis, useLenis } from "@studio-freight/react-lenis"
 
 export const useScrollSystem = useStore => {
-   const ref = React.useRef<HTMLDivElement>()
-   const scrollHeightRef = React.useRef<number>(0)
-   const innerHeightRef = React.useRef<number>(0)
-
    const setScrollValue = useStore(s => s.setScrollValue)
 
-   const handleScroll = () => {
-      setScrollValue(
-         window.scrollY / (scrollHeightRef.current - innerHeightRef.current)
-      )
-   }
+   useLenis(({ scroll, velocity }) => {
+      // console.log(velocity)
 
-   const handleResize = () => {
-      scrollHeightRef.current = document.body.scrollHeight
-      innerHeightRef.current = window.innerHeight
-      handleScroll()
-   }
+      setScrollValue(scroll / (window.innerHeight * 3))
 
-   React.useLayoutEffect(() => {
-      console.log("REF", ref.current.scrollHeight)
+      // called every scroll
+   })
+   const ref = React.useRef<HTMLDivElement>()
+   // const scrollHeightRef = React.useRef<number>(0)
+   // const innerHeightRef = React.useRef<number>(0)
 
-      setScrollValue(
-         window.scrollY / (scrollHeightRef.current - innerHeightRef.current)
-      )
-      scrollHeightRef.current = document.body.scrollHeight
-      innerHeightRef.current = window.innerHeight
+   // const handleScroll = () => {
+   //    setScrollValue(
+   //       window.scrollY / (scrollHeightRef.current - innerHeightRef.current)
+   //    )
+   // }
 
-      window.addEventListener("scroll", handleScroll)
-      window.addEventListener("resize", handleResize)
+   // const handleResize = () => {
+   //    scrollHeightRef.current = document.body.scrollHeight
+   //    innerHeightRef.current = window.innerHeight
+   //    handleScroll()
+   // }
 
-      return () => {
-         window.removeEventListener("scroll", handleScroll)
-         window.removeEventListener("resize", handleResize)
-      }
-   }, [])
+   // React.useLayoutEffect(() => {
+   //    console.log("REF", ref.current.scrollHeight)
+
+   //    setScrollValue(
+   //       window.scrollY / (scrollHeightRef.current - innerHeightRef.current)
+   //    )
+   //    scrollHeightRef.current = document.body.scrollHeight
+   //    innerHeightRef.current = window.innerHeight
+
+   //    window.addEventListener("scroll", handleScroll)
+   //    window.addEventListener("resize", handleResize)
+
+   //    return () => {
+   //       window.removeEventListener("scroll", handleScroll)
+   //       window.removeEventListener("resize", handleResize)
+   //    }
+   // }, [])
 
    return ref
 }
