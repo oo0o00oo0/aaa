@@ -20,6 +20,8 @@ export const useScrollSystem = useStore => {
    }
 
    React.useLayoutEffect(() => {
+      console.log("REF", ref.current.scrollHeight)
+
       setScrollValue(
          window.scrollY / (scrollHeightRef.current - innerHeightRef.current)
       )

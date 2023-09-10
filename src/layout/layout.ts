@@ -5,6 +5,6 @@ export const Grid_1 = styled.div`
    grid-template-columns: 1fr;
    grid-template-rows: 1fr;
    grid-template-areas: "header" "main" "footer";
-   height: 100vh;
-   width: 100vw;
+   height: 100%;
+   width: 100%;
 `

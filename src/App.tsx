@@ -1,10 +1,9 @@
 //https://codesandbox.io/s/react-spring-typescript-968b1?file=/src/components/AnimatedRoutes.tsx
-import React, { Suspense } from "react"
+import React from "react"
 import { Router, Route, useLocation } from "wouter"
 import styled from "styled-components"
 import TCanvas from "./components/canvas/TCanvas/TCanvas"
 import useStore from "@state/store"
-import UI from "@dom/UI"
 import { useScrollSystem } from "@lib/useScrollSystem"
 import { lazy } from "react"
 import useFontFaceObserver from "use-font-face-observer"
@@ -13,55 +12,96 @@ import Programmes from "./page/Programmes"
 
 const Home = lazy(() => import("./page/Home"))
 const About = lazy(() => import("./page/About"))
+const Contact = lazy(() => import("./page/Contact"))
 
+const pages = ["/", "/about", "/programmes", "/Contact"]
 export const App = () => {
    const ref = useScrollSystem(useStore)
-   console.log("render app")
+   useScrollNavigation(pages)
+
+   const scrolly = false
 
    return (
       <>
-         <Router>
-            <FontObserverWrapper>
-               <Suspense fallback={<div>Loading...</div>}>
-                  <div
-                     style={{
-                        position: "fixed"
-                     }}>
-                     <Route
-                        path="/"
-                        component={Home}
-                     />
-                     <Route
-                        path="/about"
-                        component={About}
-                     />
-                     <Route
-                        path="/programmes"
-                        component={Programmes}
-                     />
-                  </div>
-               </Suspense>
-            </FontObserverWrapper>
-            <Navigator />
-         </Router>
-
-         <CanvasWrapper ref={ref}>
-            <TCanvas count={3} />
-         </CanvasWrapper>
-         <UI text={"123"} />
          <div
+            ref={ref}
             style={{
-               height: "300vh"
-            }}></div>
+               height: `${(pages.length + 1) * 100}vh`
+            }}>
+            <Router>
+               <FontObserverWrapper>
+                  {scrolly ? <ScrollLayout /> : <RouteLayout />}
+               </FontObserverWrapper>
+            </Router>
+         </div>
+
+         <CanvasWrapper>
+            <TCanvas
+               count={pages.length}
+               scrolly={scrolly}
+            />
+         </CanvasWrapper>
       </>
    )
 }
 
-function Navigator() {
-   const page = useScrollNavigation(["/", "/about", "/programmes"])
-
-   return null
+function ScrollLayout() {
+   return (
+      <React.Suspense fallback={<div>Loading...</div>}>
+         <PageWr>
+            <Home />
+         </PageWr>
+         <PageWr>
+            <About />
+         </PageWr>
+         <PageWr>
+            <Programmes />
+         </PageWr>
+         <PageWr>
+            <Contact />
+         </PageWr>
+      </React.Suspense>
+   )
 }
+
+function RouteLayout() {
+   return (
+      <React.Suspense fallback={<div>Loading...</div>}>
+         <PageWr style={{ position: "fixed" }}>
+            <Route
+               path="/"
+               component={Home}
+            />
+         </PageWr>
+         <PageWr style={{ position: "fixed" }}>
+            <Route
+               path="/about"
+               component={About}
+            />
+         </PageWr>
+         <PageWr style={{ position: "fixed" }}>
+            <Route
+               path="/programmes"
+               component={Programmes}
+            />
+         </PageWr>
+         <PageWr style={{ position: "fixed" }}>
+            <Route
+               path="/contact"
+               component={Contact}
+            />
+         </PageWr>
+      </React.Suspense>
+   )
+}
+
+const PageWr = styled.div`
+   width: 100%;
+   height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+`
 
 const FontObserverWrapper = ({ children }) => {
    const isFontListLoaded = useFontFaceObserver([

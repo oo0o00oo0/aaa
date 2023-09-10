@@ -9,10 +9,8 @@ import {
 
 import { morphData } from "@src/data/morph_data"
 import { useAssets } from "@src/lib/useAssets"
-import ContinuousMorph from "@canvas/ContinuousMorph/ContinuousMorph"
-import { Perf } from "r3f-perf"
 
-export const TCanvas = ({ count }) => {
+export const TCanvas = ({ count, scrolly }) => {
    return (
       <Canvas
          frameloop="demand"
@@ -23,43 +21,37 @@ export const TCanvas = ({ count }) => {
          }}
          dpr={window.devicePixelRatio}>
          <Suspense fallback={null}>
-            <Moprhings count={count} />
+            <Moprhings
+               count={count}
+               scrolly={scrolly}
+            />
          </Suspense>
       </Canvas>
    )
 }
 
-const Moprhings = ({ count }) => {
+const Moprhings = ({ count, scrolly }) => {
    const { textures, DATA_TEXTURES } = useAssets(morphData)
 
    const { viewport } = useThree()
 
-   const tempSizeHeightPercentage = 0.5
+   const tempSizeHeightPercentage = 0.4
 
    return (
-      <>
-         {/* <group position={[0, 0, 0]}>
-            <ContinuousMorph
-               count={count}
-               dataTextures={DATA_TEXTURES}
-               textures={textures}
-            />
-         </group> */}
-
-         <group
-            scale={[
-               viewport.height * tempSizeHeightPercentage,
-               viewport.height * tempSizeHeightPercentage,
-               1
-            ]}>
-            <DiscreteMorph
-               // debounce={250}
-               count={count}
-               dataTextures={DATA_TEXTURES}
-               textures={textures}
-            />
-         </group>
-      </>
+      <group
+         scale={[
+            viewport.height * tempSizeHeightPercentage,
+            viewport.height * tempSizeHeightPercentage,
+            1
+         ]}>
+         <DiscreteMorph
+            scrolly={scrolly}
+            // debounce={250}
+            count={count}
+            dataTextures={DATA_TEXTURES}
+            textures={textures}
+         />
+      </group>
    )
 }
 

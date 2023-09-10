@@ -1,44 +1,48 @@
 import React from "react"
 import * as THREE from "three"
-import { useLoader } from "@react-three/fiber"
+import { useLoader, useThree } from "@react-three/fiber"
 import { insertEveryNth } from "@src/utils/functions"
 
-let t = ["/atlas/one.webp", "/atlas/one.webp", "/atlas/one.webp"]
+let t = [
+   "/atlas/one.webp",
+   "/atlas/atlas.webp",
+   "/atlas/one.webp",
+   "/atlas/atlas.webp",
+   "/atlas/one.webp",
+   "/atlas/atlas.webp"
+]
 
 export const useAssets = morphData => {
-   const firstTexture = useLoader(THREE.TextureLoader, `/atlas/atlas.webp`)
-   const secondTexture = useLoader(THREE.TextureLoader, `/atlas/atlas.webp`)
-   const thirdTexture = useLoader(THREE.TextureLoader, `/atlas/atlas.webp`)
-   const [textures, setTextures] = React.useState([
-      firstTexture,
-      secondTexture,
-      thirdTexture
-   ])
+   const firstTexture = useLoader(THREE.TextureLoader, t[0])
+   const [textures, setTextures] = React.useState([firstTexture])
 
-   // const loadNextTexture = (index: number) => {
-   //    if (index < 2) {
-   //       const loader = new THREE.TextureLoader()
-   //       loader.load(
-   //          // `/mathias/grid/grid-${index}.jpg`,
-   //          t[index],
-   //          texture => {
-   //             setTextures(prevTextures => [...prevTextures, texture])
-   //             window.requestIdleCallback(() => {
-   //                loadNextTexture(index + 1)
-   //             })
-   //          },
-   //          () => console.log(index),
-   //          error => {
-   //             loadNextTexture(index + 1)
-   //             console.error(`Failed to load texture at index ${index}:`, error)
-   //          }
-   //       )
-   //    }
-   // }
+   const { gl } = useThree()
 
-   // React.useEffect(() => {
-   //    loadNextTexture(1)
-   // }, [])
+   const loadNextTexture = (index: number) => {
+      if (index < t.length - 1) {
+         const loader = new THREE.TextureLoader()
+         loader.load(
+            t[index],
+            texture => {
+               setTextures(prevTextures => [...prevTextures, texture])
+
+               gl.initTexture(texture)
+               window.requestIdleCallback(() => {
+                  loadNextTexture(index + 1)
+               })
+            },
+            () => console.log(index),
+            error => {
+               loadNextTexture(index + 1)
+               console.error(`Failed to load texture at index ${index}:`, error)
+            }
+         )
+      }
+   }
+
+   React.useEffect(() => {
+      loadNextTexture(1)
+   }, [])
 
    const DATA_TEXTURES = React.useMemo<THREE.DataTexture[]>(() => {
       const DATA_TEXTURES = Object.keys(morphData)

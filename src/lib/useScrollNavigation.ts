@@ -2,11 +2,6 @@ import { useState, useEffect, useLayoutEffect } from "react"
 import { useLocation } from "wouter"
 
 const useScrollNavigation = pages => {
-   const totalSections = pages.length
-   const sectionHeight = window.innerHeight // Assuming each page section is of window's height
-   const [location, setLocation] = useLocation()
-   const [page, setPage] = useState(location)
-
    const handlePageChange = () => {
       const currentSection = Math.floor(window.scrollY / sectionHeight)
 
@@ -18,6 +13,10 @@ const useScrollNavigation = pages => {
          setPage(pages[currentSection])
       }
    }
+   const totalSections = pages.length
+   const sectionHeight = window.innerHeight // Assuming each page section is of window's height
+   const [location, setLocation] = useLocation()
+   const [page, setPage] = useState(location)
 
    useEffect(() => {
       window.addEventListener("scroll", handlePageChange)
@@ -35,6 +34,7 @@ const useScrollNavigation = pages => {
       const currentPageIndex = pages.findIndex(p => p === location)
 
       const scrollPosition = currentPageIndex * sectionHeight
+      console.log("SCROLL TO")
 
       window.scrollTo(0, scrollPosition)
    }, [])

@@ -7,10 +7,40 @@ import useStore from "@state/store"
 import MorphBufferGeometry from "../MorphBufferGeometry/MorphBufferGeometry"
 import { DescGsapOptions, DiscreteMorphProps } from "./types"
 
+var checkScrollSpeed = (function (settings) {
+   settings = settings || {}
+
+   var lastPos,
+      newPos,
+      timer,
+      delta,
+      delay = settings.delay || 50 // in "ms" (higher means lower fidelity )
+
+   function clear() {
+      lastPos = null
+      delta = 0
+   }
+
+   clear()
+
+   return function () {
+      newPos = window.scrollY
+      if (lastPos != null) {
+         // && newPos < maxScroll
+         delta = newPos - lastPos
+      }
+      lastPos = newPos
+      clearTimeout(timer)
+      timer = setTimeout(clear, delay)
+      return delta
+   }
+})()
+
 const DiscreteMorph: React.FC<DiscreteMorphProps> = ({
    textures,
    dataTextures,
-   count
+   count,
+   scrolly
 }) => {
    const invalidate = useThree(s => s.invalidate)
    const scrollValueRef = React.useRef<number>(0)
@@ -38,11 +68,26 @@ const DiscreteMorph: React.FC<DiscreteMorphProps> = ({
       const subscription = useStore.subscribe(
          state => state.SCROLL_VALUE,
          scrollValue => {
-            scrollValueRef.current = scrollValue
             if (animating) {
                return
             }
-            updateTransitionId(setTransitionId, count, scrollValue)
+            if (!scrolly) {
+               updateShader(
+                  shaderRef,
+                  textures,
+                  dataTextures,
+                  scrollValue,
+                  invalidate,
+                  count
+               )
+            } else {
+               updateTransitionId(setTransitionId, count, scrollValue)
+               // ...your updateShader function parameters here
+            }
+
+            // scrollValueRef.current = scrollValue
+
+            // updateTransitionId(setTransitionId, count, scrollValue)
          }
       )
 
@@ -70,6 +115,39 @@ const DiscreteMorph: React.FC<DiscreteMorphProps> = ({
    )
 }
 
+const updateShader = (
+   shaderRef,
+   textures,
+   dataTextures,
+   SCROLL_VALUE,
+   invalidate,
+   count
+) => {
+   const textureIndex = Math.floor(SCROLL_VALUE * count)
+
+   console.log(textureIndex)
+
+   // shaderRef.current.uniforms.uTexture_0.value = textures[0]
+   // shaderRef.current.uniforms.uTexture_1.value = textures[0]
+
+   //MULTI TEXTURES
+   shaderRef.current.uniforms.uTexture_0.value = textures[textureIndex % count]
+   shaderRef.current.uniforms.uTexture_1.value =
+      textures[(textureIndex + 1) % count]
+
+   shaderRef.current.uniforms.uVertTexture_0.value =
+      dataTextures[textureIndex % count]
+
+   shaderRef.current.uniforms.uVertTexture_1.value =
+      dataTextures[(textureIndex + 1) % count]
+
+   const blendFactor = SCROLL_VALUE * count - textureIndex
+
+   shaderRef.current.uniforms.uBlend.value = blendFactor
+
+   invalidate()
+}
+
 export default DiscreteMorph
 
 const updateTransitionId = (
@@ -94,6 +172,7 @@ const transition = (
    const gsapOptions: DescGsapOptions = {
       onStart: () => {
          setAnimating(true)
+         console.log("T INDEX", index)
          if (shaderRef.current.uniforms.uBlend.value < 0.5) {
             UNIFORMS.uTexture_1.value = textures[index]
 
