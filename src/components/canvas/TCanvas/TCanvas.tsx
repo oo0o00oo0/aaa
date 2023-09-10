@@ -25,7 +25,6 @@ export const TCanvas = ({ count }) => {
 
 const Moprhings = ({ count }) => {
    const { textures, DATA_TEXTURES } = useAssets(morphData)
-
    const { viewport } = useThree()
 
    const tempSizeHeightPercentage = 1
