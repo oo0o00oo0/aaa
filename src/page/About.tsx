@@ -1,17 +1,15 @@
 import Layout from "@src/layout/Layout"
-import React, { useState } from "react"
+import React from "react"
 import styled from "styled-components"
 
 type Props = {}
 
 const About = (props: Props) => {
-   const [isImageLoaded, setImageLoaded] = useState(false)
-
    const ref = React.useRef<HTMLImageElement>(null)
 
    return (
       <Layout>
-         <Header>ABOUT</Header>
+         <Header ref={ref}>ABOUT</Header>
 
          {/* <div
             style={{

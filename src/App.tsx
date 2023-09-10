@@ -17,8 +17,10 @@ const pages = ["/", "/about", "/programmes", "/Contact"]
 
 export const App = () => {
    const setScrollValue = useStore(s => s.setScrollValue)
+   const setScrollVelocity = useStore(s => s.setScrollVelocity)
 
    useLenis(({ scroll, velocity }) => {
+      setScrollVelocity(velocity)
       setScrollValue(scroll / (window.innerHeight * (pages.length - 1)))
    })
 

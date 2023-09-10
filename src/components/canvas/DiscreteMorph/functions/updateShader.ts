@@ -8,7 +8,7 @@ function cubicBezier(p0, p1, p2, p3, t) {
 }
 
 function piecewiseBezier(t) {
-   const holdStart = 0.8
+   const holdStart = 0.7
 
    if (t < holdStart) {
       return cubicBezier(0, 0.1, 0.9, 1, t / holdStart)
@@ -41,8 +41,6 @@ export const updateShader = (
       dataTextures[(textureIndex + 1) % count]
 
    const blendFactor = SCROLL_VALUE * count - textureIndex
-
-   // console.log(blendFactor, piecewiseBezier(blendFactor))
 
    shaderRef.current.uniforms.uBlend.value = piecewiseBezier(blendFactor)
 
