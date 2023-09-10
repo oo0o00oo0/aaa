@@ -1,6 +1,8 @@
 precision mediump float;
 
 uniform float uBlend;
+uniform float uOpacity_0;
+uniform float uOpacity_1;
 varying vec2 vUv;
 varying vec2 vUv_1;
 varying vec2 vUv_2;
@@ -22,6 +24,8 @@ void main() {
   // vec4 atlas_2 = texture2D(uAtlas, vUv_2);
   // vec4 color = mix(atlas_1, atlas_2, uBlend);
 
-  gl_FragColor = vec4(color.rgb, 1.);
+  float opac = mix(uOpacity_0, uOpacity_1, uBlend);
+
+  gl_FragColor = vec4(color.rgb, opac);
   // gl_FragColor = vec4(1., .0, .6, 1.);
 }

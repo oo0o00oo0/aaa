@@ -2,7 +2,6 @@ import { Canvas, useThree } from "@react-three/fiber"
 import { Suspense } from "react"
 import DiscreteMorph from "@canvas/DiscreteMorph"
 import { Vector3 } from "three"
-
 import { morphData } from "@src/data/morph_data"
 import { useAssets } from "@src/lib/useAssets"
 
@@ -24,6 +23,7 @@ export const TCanvas = ({ count }) => {
 }
 
 const Moprhings = ({ count }) => {
+   const opacity = [1, 1, 0, 1, 1]
    const { textures, DATA_TEXTURES } = useAssets(morphData)
    const { viewport } = useThree()
 
@@ -32,11 +32,12 @@ const Moprhings = ({ count }) => {
    return (
       <group
          scale={[
-            viewport.height * tempSizeHeightPercentage,
-            viewport.height * tempSizeHeightPercentage,
+            viewport.width * tempSizeHeightPercentage,
+            viewport.width * tempSizeHeightPercentage,
             1
          ]}>
          <DiscreteMorph
+            opacity={opacity}
             count={count}
             dataTextures={DATA_TEXTURES}
             textures={textures}

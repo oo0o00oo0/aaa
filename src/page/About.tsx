@@ -49,6 +49,20 @@ const About = (props: Props) => {
                Loading image...
             </LoadingPlaceholder>
          </div> */}
+         <Para>
+            Sculpture studios at the Academy of Artificial Arts hums with the
+            rhythmic movements of robotic arms, each meticulously crafted to
+            mold and shape raw materials with artistic precision. Robots,
+            adorned in vibrant colors and intricate patterns, tirelessly
+            manipulate clay, marble, and synthetic polymers, their algorithms
+            transforming lifeless matter into captivating forms. Employing these
+            same techniques, the robots also modify their own mechanical parts,
+            transforming their bodies into living, evolving artworks that become
+            the captivating centerpiece of their own performance. In this
+            evolving feedback loop of technology and artistry, the sculptures
+            born from mechanical curiosities tell stories of perceptions of the
+            artificial mind.
+         </Para>
       </Layout>
    )
 }
@@ -56,8 +70,19 @@ const About = (props: Props) => {
 const Header = styled.h1`
    grid-area: header;
    font-family: WONKY;
-
    grid-row: 1 / 2;
+   grid-column: 1 / 1;
+   display: flex;
+   justify-content: flex-start;
+   align-items: flex-end;
+`
+
+const Para = styled.p`
+   grid-row: 2 / 3;
+   font-size: 1rem;
+   font-family: Cormorant;
+   grid-column: 1/1;
+   text-align: left;
 `
 
 const LoadingPlaceholder = styled.div`

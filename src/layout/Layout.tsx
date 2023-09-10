@@ -20,10 +20,11 @@ function Layout({ children }) {
 export default Layout
 
 const Grid = styled.div`
+   padding: 5vw;
    opacity: 0;
-   font-size: 5rem;
+   font-size: 2rem;
    display: grid;
-   grid-template-columns: 1fr 1fr 1fr;
+   grid-template-columns: 1fr 1fr 1fr 1fr;
    grid-template-rows: 1fr 1fr 1fr;
    /* grid-template-areas: "header" "main" "footer"; */
 

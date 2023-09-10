@@ -5,11 +5,7 @@ export const useScrollSystem = useStore => {
    const setScrollValue = useStore(s => s.setScrollValue)
 
    useLenis(({ scroll, velocity }) => {
-      // console.log(velocity)
-
       setScrollValue(scroll / (window.innerHeight * 3))
-
-      // called every scroll
    })
    const ref = React.useRef<HTMLDivElement>()
    // const scrollHeightRef = React.useRef<number>(0)

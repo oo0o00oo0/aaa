@@ -7,9 +7,8 @@ type Props = {}
 const Home = (props: Props) => {
    return (
       <Layout>
-         <Link href="/about">
-            <Header>AAA</Header>
-         </Link>
+         <Link href="/about">{/* <Header>AAA</Header> */}</Link>
+         <p></p>
       </Layout>
    )
 }

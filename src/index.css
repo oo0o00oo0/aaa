@@ -2,6 +2,10 @@
   font-family: WONKY;
   src: url(/fonts/WONKY_Trial-Regular.woff2)
 }
+@font-face {
+  font-family: Cormorant;
+  src: url(/fonts/Cormorant-Light.otf)
+}
 
 /** https://www.joshwcomeau.com/css/custom-css-reset/ */
 

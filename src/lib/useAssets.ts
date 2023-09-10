@@ -4,7 +4,7 @@ import { useLoader, useThree } from "@react-three/fiber"
 import { insertEveryNth } from "@src/utils/functions"
 
 let t = [
-   "/atlas/one.webp",
+   "/atlas/00_HERO.webp",
    "/atlas/atlas.webp",
    "/atlas/one.webp",
    "/atlas/atlas.webp",

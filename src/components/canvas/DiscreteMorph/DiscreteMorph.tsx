@@ -1,44 +1,19 @@
 import React from "react"
 import * as THREE from "three"
 import { useThree } from "@react-three/fiber"
-import { gsap, Linear } from "gsap"
 import SimpleShaderMaterial from "@canvas/SimpleShaderMaterial"
 import useStore from "@state/store"
 import MorphBufferGeometry from "../MorphBufferGeometry/MorphBufferGeometry"
-import { DescGsapOptions, DiscreteMorphProps } from "./types"
-
-const checkScrollSpeed = (function (settings) {
-   settings = settings || {}
-
-   var lastPos,
-      newPos,
-      timer,
-      delta,
-      delay = settings.delay || 50 // in "ms" (higher means lower fidelity )
-
-   function clear() {
-      lastPos = null
-      delta = 0
-   }
-
-   clear()
-
-   return function () {
-      newPos = window.scrollY
-      if (lastPos != null) {
-         delta = newPos - lastPos
-      }
-      lastPos = newPos
-      clearTimeout(timer)
-      timer = setTimeout(clear, delay)
-      return delta
-   }
-})()
+import { DiscreteMorphProps } from "./types"
+import { transition } from "./functions/transitions"
+import { updateShader } from "./functions/updateShader"
+import { ReactLenis, useLenis } from "@studio-freight/react-lenis"
 
 const DiscreteMorph: React.FC<DiscreteMorphProps> = ({
    textures,
    dataTextures,
-   count
+   count,
+   opacity
 }) => {
    const invalidate = useThree(s => s.invalidate)
    const scrollValueRef = React.useRef<number>(0)
@@ -69,18 +44,16 @@ const DiscreteMorph: React.FC<DiscreteMorphProps> = ({
             if (animating) {
                return
             }
-            // if (!scrolly) {
             updateShader(
                shaderRef,
                textures,
                dataTextures,
                scrollValue,
                invalidate,
-               count
+               count,
+               opacity
             )
-            // } else {
-            //    updateTransitionId(setTransitionId, count, scrollValue)
-            // }
+            // updateTransitionId(setTransitionId, count, scrollValue)
          }
       )
 
@@ -108,79 +81,4 @@ const DiscreteMorph: React.FC<DiscreteMorphProps> = ({
    )
 }
 
-const updateShader = (
-   shaderRef,
-   textures,
-   dataTextures,
-   SCROLL_VALUE,
-   invalidate,
-   count
-) => {
-   const textureIndex = Math.floor(SCROLL_VALUE * count)
-
-   //MULTI TEXTURES
-   shaderRef.current.uniforms.uTexture_0.value = textures[textureIndex % count]
-   shaderRef.current.uniforms.uTexture_1.value =
-      textures[(textureIndex + 1) % count]
-
-   shaderRef.current.uniforms.uVertTexture_0.value =
-      dataTextures[textureIndex % count]
-
-   shaderRef.current.uniforms.uVertTexture_1.value =
-      dataTextures[(textureIndex + 1) % count]
-
-   const blendFactor = SCROLL_VALUE * count - textureIndex
-
-   shaderRef.current.uniforms.uBlend.value = blendFactor
-
-   invalidate()
-}
-
 export default DiscreteMorph
-
-const updateTransitionId = (
-   setId: React.Dispatch<React.SetStateAction<number>>,
-   count: number,
-   SCROLL_VALUE: number
-): void => {
-   const textureIndex = Math.round(SCROLL_VALUE * count)
-
-   setId(textureIndex % count)
-}
-
-const transition = (
-   index: number,
-   shaderRef: React.RefObject<THREE.ShaderMaterial>,
-   textures: THREE.Texture[],
-   invalidate: () => void,
-   dataTextures: THREE.DataTexture[],
-   setAnimating
-): void => {
-   const UNIFORMS = shaderRef.current.uniforms
-   const gsapOptions: DescGsapOptions = {
-      onStart: () => {
-         setAnimating(true)
-         if (shaderRef.current.uniforms.uBlend.value < 0.5) {
-            UNIFORMS.uTexture_1.value = textures[index]
-
-            UNIFORMS.uVertTexture_1.value = dataTextures[index]
-         } else {
-            UNIFORMS.uTexture_0.value = textures[index]
-
-            UNIFORMS.uVertTexture_0.value = dataTextures[index]
-         }
-      },
-      ease: Linear.easeOut,
-      duration: 0.25,
-      onComplete: () => {
-         setAnimating(false)
-      }
-   }
-   gsap.to(UNIFORMS.uBlend, {
-      value: UNIFORMS.uBlend.value < 0.5 ? 1 : 0,
-      ...gsapOptions,
-      onUpdate: () => {
-         invalidate()
-      }
-   })
-}

@@ -11,6 +11,7 @@ import useScrollNavigation from "./lib/useScrollNavigation"
 import Programmes from "./page/Programmes"
 import { ReactLenis, useLenis } from "@studio-freight/react-lenis"
 import Div100vh from "react-div-100vh"
+import Splash from "./components/canvas/Splash/Splash"
 
 const Home = lazy(() => import("./page/Home"))
 const About = lazy(() => import("./page/About"))
@@ -35,6 +36,7 @@ export const App = () => {
                   }}>
                   <Router>
                      <FontObserverWrapper>
+                        <StaticPages />
                         <ScrollLayout /> :
                      </FontObserverWrapper>
                   </Router>
@@ -47,6 +49,9 @@ export const App = () => {
          </CanvasWrapper>
       </>
    )
+}
+function StaticPages() {
+   return <Splash />
 }
 
 function ScrollLayout() {

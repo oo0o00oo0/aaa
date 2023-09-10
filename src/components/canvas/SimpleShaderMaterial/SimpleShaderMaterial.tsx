@@ -12,6 +12,8 @@ type Props = {}
 const SimpleShader = shaderMaterial(
    {
       uBlend: { value: 0 },
+      uOpacity_0: { value: 0 },
+      uOpacity_1: { value: 0 },
       uTexture_0: { value: new THREE.Texture() },
       uTexture_1: { value: new THREE.Texture() },
       uAtlas: { value: new THREE.Texture() },
@@ -29,6 +31,7 @@ const SimpleShaderMaterial = React.forwardRef((props: Props, ref) => {
    return (
       // @ts-ignore
       <simpleShader
+         transparent={true}
          wireframe={false}
          ref={ref}
       />
