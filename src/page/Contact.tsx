@@ -1,13 +1,12 @@
-import Layout from "@src/layout/Layout"
 import styled from "styled-components"
 
 type Props = {}
 
 const Contact = (props: Props) => {
    return (
-      <Layout>
+      <>
          <Header>Contact</Header>
-      </Layout>
+      </>
    )
 }
 

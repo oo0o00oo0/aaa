@@ -1,4 +1,3 @@
-import Layout from "@src/layout/Layout"
 import React from "react"
 import styled from "styled-components"
 
@@ -8,7 +7,7 @@ const About = (props: Props) => {
    const ref = React.useRef<HTMLImageElement>(null)
 
    return (
-      <Layout>
+      <>
          <Header ref={ref}>ABOUT</Header>
 
          <Para>
@@ -25,7 +24,7 @@ const About = (props: Props) => {
             born from mechanical curiosities tell stories of perceptions of the
             artificial mind.
          </Para>
-      </Layout>
+      </>
    )
 }
 
@@ -33,7 +32,7 @@ const Header = styled.h1`
    grid-area: header;
    font-family: WONKY;
    grid-row: 1 / 2;
-   grid-column: 1 / 1;
+   grid-column: 2 / 3;
    display: flex;
    justify-content: flex-start;
    align-items: flex-end;
@@ -41,9 +40,9 @@ const Header = styled.h1`
 
 const Para = styled.p`
    grid-row: 2 / 3;
-   font-size: 1rem;
+   grid-column: 2 / 4;
+   font-size: 2rem;
    font-family: Cormorant;
-   grid-column: 1/1;
    text-align: left;
 `
 

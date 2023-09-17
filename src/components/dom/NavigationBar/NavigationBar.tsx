@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import useStore from "@src/state/store"
 import { stagger } from "@src/utils/functions/helper-functions"
+import Layout from "@src/layout/Layout"
 
 type LetterProps = {
    initialOpacity?: number
@@ -15,8 +16,8 @@ function NavigationBar() {
       const subscription = useStore.subscribe(
          state => state.SCROLL_VALUE,
          scrollValue => {
-            stagger(titleRef, scrollValue, false, [0, 0.25])
-            stagger(navRef, scrollValue, true, [0.25, 0.35])
+            stagger(titleRef, scrollValue, false, [0, 0.05])
+            stagger(navRef, scrollValue, true, [0.05, 0.1])
          }
       )
 
@@ -25,8 +26,8 @@ function NavigationBar() {
 
    return (
       <Wrapper>
-         <Bar />
-         <Bar2 />
+         {/* <Bar /> */}
+         {/* <Bar2 /> */}
          <Navigation ref={navRef}>
             {"AAA".split("").map((letter, index) => (
                <Letter
@@ -58,48 +59,52 @@ const Letter =
    styled.span <
    LetterProps >
    `
-   display: inline-block;
    opacity: ${({ initialOpacity }) => initialOpacity};
-`
-const Bar2 = styled.div`
-   top: 0;
-   left: 0;
-   z-index: 9;
-   position: fixed;
-   height: 8.5rem;
-   width: 30%;
-   background-color: #eaeaead6;
-`
-const Bar = styled.div`
-   top: 8.5rem;
-   left: 0;
-   z-index: 9;
-   position: fixed;
-   height: 4.5rem;
-   width: 30%;
-   background-image: linear-gradient(to top, rgba(255, 0, 0, 0), #eaeaead6);
 `
 
 const Title = styled.div`
    z-index: 9;
-   font-size: 4.5rem;
    font-family: Cormorant;
-   position: fixed;
 `
 
 const Navigation = styled.div`
+   max-height: fit-content;
    z-index: 9;
    position: absolute;
-   font-size: 4.5rem;
    font-family: WONKY;
 `
 
 const Wrapper = styled.div`
-   padding: 2rem;
-   height: 100%;
-   width: 100%;
+   padding: 3rem 2rem;
+   text-align: top;
    position: fixed;
+   height: 15vh;
+   width: 100%;
+   line-height: 1;
+   font-size: calc(5vh - 2rem);
+
    color: #c1140a;
 `
 
+// const Bar2 = styled.div`
+//    top: 0;
+//    left: 0;
+//    z-index: 9;
+//    position: fixed;
+//    height: 60vh;
+//    width: 100%;
+//    background-color: #eaeaea;
+//    /* border: gray solid 1px; */
+// `
+// const Bar = styled.div`
+//    top: 60vh;
+//    left: 0;
+//    z-index: 9;
+//    position: fixed;
+//    height: 4vh;
+//    width: 100%;
+//    background-image: linear-gradient(to top, rgba(255, 0, 0, 0), #eaeaea);
+//    /* background-image: linear-gradient(to top, rgba(255, 0, 0, 0), #eaeaea); */
+//    /* border-bottom: gray solid 1px; */
+// `
 export default NavigationBar

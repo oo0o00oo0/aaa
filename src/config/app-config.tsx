@@ -5,7 +5,16 @@ const About = React.lazy(() => import("@src/page/About"))
 const Programmes = React.lazy(() => import("@src/page/Programmes"))
 const Contact = React.lazy(() => import("@src/page/Contact"))
 
-export const pageOpacity = [1, 1, 0, 1]
+export const pageOpacity = [1, 1, 1, 1]
+
+export const texturePaths = [
+   "/atlas/00_HERO.webp",
+   "/atlas/atlas.webp",
+   "/atlas/atlas.webp",
+   "/atlas/one.webp",
+   "/atlas/one.webp",
+   "/atlas/atlas.webp"
+]
 
 export const routes = [
    {

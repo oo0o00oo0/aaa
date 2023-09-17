@@ -1,16 +1,8 @@
 import React from "react"
 import * as THREE from "three"
-import { useLoader, useThree } from "@react-three/fiber"
+import { useThree } from "@react-three/fiber"
 import { insertEveryNth } from "@src/utils/functions"
-
-let texturePaths = [
-   "/atlas/00_HERO.webp",
-   "/atlas/atlas.webp",
-   "/atlas/one.webp",
-   "/atlas/atlas.webp",
-   "/atlas/one.webp",
-   "/atlas/atlas.webp"
-]
+import { texturePaths } from "@src/config/app-config"
 
 export const useAssets = morphData => {
    const { gl } = useThree()
@@ -49,7 +41,6 @@ export const useAssets = morphData => {
             if (index < texturePaths.length - 1) {
                loadTexture(texturePaths[index + 1], index + 1)
             }
-            // }, 1000)
          },
          () => console.log(index),
          error => {

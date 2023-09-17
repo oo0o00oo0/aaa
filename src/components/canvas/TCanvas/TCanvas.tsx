@@ -26,17 +26,21 @@ export const TCanvas = ({ count }) => {
 const Moprhings = ({ count }) => {
    const { TEXTURES, DATA_TEXTURES } = useAssets(morphData)
 
-   console.log(TEXTURES)
-
    const { viewport } = useThree()
 
-   const tempSizeHeightPercentage = 1
+   const xPaddingInPixels = window.innerWidth * 0.02
+
+   const effectiveWidth = viewport.width - 2 * xPaddingInPixels
+
+   const topOffset = viewport.height * 0.125
+   const xScaleFactor = effectiveWidth / viewport.width
 
    return (
       <group
+         position={[0, viewport.height / 2 - topOffset, 0]}
          scale={[
-            viewport.width * tempSizeHeightPercentage,
-            viewport.width * tempSizeHeightPercentage,
+            viewport.width * xScaleFactor,
+            viewport.width * xScaleFactor,
             1
          ]}>
          <DiscreteMorph
