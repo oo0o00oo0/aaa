@@ -14,35 +14,35 @@ let t = [
 
 export const useAssets = morphData => {
    const firstTexture = useLoader(THREE.TextureLoader, t[0])
-   const [textures, setTextures] = React.useState([firstTexture])
+   // const [IMAGE_TEXTURES, setTextures] = React.useState([firstTexture])
 
    const { gl } = useThree()
 
-   const loadNextTexture = (index: number) => {
-      if (index < t.length - 1) {
-         const loader = new THREE.TextureLoader()
-         loader.load(
-            t[index],
-            texture => {
-               setTextures(prevTextures => [...prevTextures, texture])
+   // const loadNextTexture = (index: number) => {
+   //    if (index < t.length - 1) {
+   //       const loader = new THREE.TextureLoader()
+   //       loader.load(
+   //          t[index],
+   //          texture => {
+   //             setTextures(prevTextures => [...prevTextures, texture])
 
-               gl.initTexture(texture)
-               window.requestIdleCallback(() => {
-                  loadNextTexture(index + 1)
-               })
-            },
-            () => console.log(index),
-            error => {
-               loadNextTexture(index + 1)
-               console.error(`Failed to load texture at index ${index}:`, error)
-            }
-         )
-      }
-   }
+   //             gl.initTexture(texture)
+   //             window.requestIdleCallback(() => {
+   //                loadNextTexture(index + 1)
+   //             })
+   //          },
+   //          () => console.log(index),
+   //          error => {
+   //             loadNextTexture(index + 1)
+   //             console.error(`Failed to load texture at index ${index}:`, error)
+   //          }
+   //       )
+   //    }
+   // }
 
-   React.useEffect(() => {
-      loadNextTexture(1)
-   }, [])
+   // React.useEffect(() => {
+   //    loadNextTexture(1)
+   // }, [])
 
    const DATA_TEXTURES = React.useMemo<THREE.DataTexture[]>(() => {
       const DATA_TEXTURES = Object.keys(morphData)
@@ -84,5 +84,5 @@ export const useAssets = morphData => {
       return DATA_TEXTURES
    }, [])
 
-   return { textures, DATA_TEXTURES }
+   return { DATA_TEXTURES }
 }

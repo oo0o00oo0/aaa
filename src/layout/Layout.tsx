@@ -5,12 +5,11 @@ import styled from "styled-components"
 function Layout({ children }) {
    const ref = React.useRef()
    React.useEffect(() => {
-      console.log("ref")
-
       gsap.to(ref.current, {
          opacity: 1,
          duration: 4,
-         ease: "power4.out"
+         ease: "power4.out",
+         delay: 0.5
       })
    }, [])
 
@@ -26,7 +25,6 @@ const Grid = styled.div`
    display: grid;
    grid-template-columns: 1fr 1fr 1fr 1fr;
    grid-template-rows: 1fr 1fr 1fr;
-   /* grid-template-areas: "header" "main" "footer"; */
 
    height: 100%;
    width: 100%;

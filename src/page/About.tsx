@@ -11,42 +11,6 @@ const About = (props: Props) => {
       <Layout>
          <Header ref={ref}>ABOUT</Header>
 
-         {/* <div
-            style={{
-               top: "40px",
-               position: "absolute"
-            }}>
-            <div
-               style={{
-                  top: "400px",
-                  position: "absolute",
-                  height: "400px",
-                  width: "400px"
-               }}>
-               <img
-                  style={{
-                     zIndex: 2,
-                     opacity: isImageLoaded ? 1 : 0,
-                     transition: "opacity 1s ease-in-out",
-                     position: "absolute"
-                  }}
-                  ref={ref}
-                  src="/atlas/atlas.webp"
-                  onLoad={e => setImageLoaded(true)}
-                  alt="Atlas"
-               />
-            </div>
-            <LoadingPlaceholder
-               style={{
-                  zIndex: 1,
-                  top: "400px",
-                  position: "absolute",
-                  height: "400px",
-                  width: "400px"
-               }}>
-               Loading image...
-            </LoadingPlaceholder>
-         </div> */}
          <Para>
             Sculpture studios at the Academy of Artificial Arts hums with the
             rhythmic movements of robotic arms, each meticulously crafted to

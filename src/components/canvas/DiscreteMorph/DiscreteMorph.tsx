@@ -11,9 +11,10 @@ const DiscreteMorph: React.FC<DiscreteMorphProps> = ({
    textures,
    dataTextures,
    count,
-   opacity
+   pageOpacity
 }) => {
    const invalidate = useThree(s => s.invalidate)
+   // console.log(textures)
 
    const meshRef = React.useRef<THREE.Mesh>(null)
    const shaderRef = React.useRef<THREE.ShaderMaterial>(null)
@@ -26,13 +27,13 @@ const DiscreteMorph: React.FC<DiscreteMorphProps> = ({
          0,
          invalidate,
          count,
-         opacity
+         pageOpacity
       )
 
       if (!meshRef.current.visible) {
          meshRef.current.visible = true
       }
-   }, [])
+   }, [textures])
 
    React.useEffect(() => {
       const subscription = useStore.subscribe(
@@ -45,7 +46,7 @@ const DiscreteMorph: React.FC<DiscreteMorphProps> = ({
                scrollValue,
                invalidate,
                count,
-               opacity
+               pageOpacity
             )
             // updateTransitionId(setTransitionId, count, scrollValue)
          }

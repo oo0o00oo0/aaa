@@ -34,7 +34,6 @@ const useScrollNavigation = pages => {
       const currentPageIndex = pages.findIndex(p => p === location)
 
       const scrollPosition = currentPageIndex * sectionHeight
-      console.log("SCROLL TO")
 
       window.scrollTo(0, scrollPosition)
    }, [])

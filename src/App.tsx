@@ -8,8 +8,7 @@ import useStore from "@state/store"
 import NavigationBar from "./components/dom/NavigationBar/NavigationBar"
 import FontObserverWrapper from "./components/dom/FontObserverWrapper/FontObserverWrapper"
 import ScrollLayout from "./components/dom/ScrollLayout/ScrollLayout"
-
-const pages = ["/", "/about", "/programmes", "/Contact"]
+import { routes } from "./config/app-config"
 
 export const App = () => {
    const setScrollValue = useStore(s => s.setScrollValue)
@@ -17,7 +16,7 @@ export const App = () => {
 
    useLenis(({ scroll, velocity }) => {
       setScrollVelocity(velocity)
-      setScrollValue(scroll / (window.innerHeight * (pages.length - 1)))
+      setScrollValue(scroll / (window.innerHeight * (routes.length - 1)))
    })
 
    return (
@@ -32,7 +31,7 @@ export const App = () => {
          </ReactLenis>
 
          <CanvasWrapper>
-            <TCanvas count={pages.length} />
+            <TCanvas count={routes.length} />
          </CanvasWrapper>
       </>
    )
