@@ -1,8 +1,7 @@
 import { Canvas, useThree } from "@react-three/fiber"
-import * as THREE from "three"
-import React, { Suspense, useEffect, useState } from "react"
+import React from "react"
 import DiscreteMorph from "@canvas/DiscreteMorph"
-import { DataTexture, RGBAFormat, TextureLoader, Vector3 } from "three"
+import { Vector3 } from "three"
 import { morphData } from "@src/data/morph_data"
 import { useAssets } from "@src/lib/useAssets"
 import { pageOpacity } from "@src/config/app-config"
@@ -17,15 +16,17 @@ export const TCanvas = ({ count }) => {
             zoom: 1
          }}
          dpr={window.devicePixelRatio}>
-         <Suspense fallback={null}>
+         <React.Suspense fallback={null}>
             <Moprhings count={count} />
-         </Suspense>
+         </React.Suspense>
       </Canvas>
    )
 }
 
 const Moprhings = ({ count }) => {
    const { TEXTURES, DATA_TEXTURES } = useAssets(morphData)
+
+   console.log(TEXTURES)
 
    const { viewport } = useThree()
 

@@ -17,13 +17,16 @@ export const useAssets = morphData => {
 
    const initialTextures = React.useMemo(() => {
       const data = new Uint8Array([
-         255, 0, 0, 255, 0, 255, 0, 255, 0, 0, 255, 255, 255, 255, 0, 255
+         175, 175, 175, 175, 175, 175, 175, 175, 175, 175, 175, 175, 175, 175,
+         175, 175
       ])
 
       const texture = new THREE.DataTexture(data, 2, 2, THREE.RGBAFormat)
       texture.needsUpdate = true
 
-      return [texture, texture, texture, texture, texture, texture]
+      const textures = texturePaths.map(() => texture)
+
+      return textures
    }, [])
 
    const [TEXTURES, setTextures] =
