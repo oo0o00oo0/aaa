@@ -17,7 +17,7 @@ export const transition = (
    textures: THREE.Texture[],
    invalidate: () => void,
    dataTextures: THREE.DataTexture[],
-   setAnimating
+   setAnimating: React.Dispatch<React.SetStateAction<boolean>>
 ): void => {
    const UNIFORMS = shaderRef.current.uniforms
    const gsapOptions: DescGsapOptions = {

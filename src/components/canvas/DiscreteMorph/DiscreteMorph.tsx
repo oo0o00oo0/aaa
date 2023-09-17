@@ -14,10 +14,12 @@ const DiscreteMorph: React.FC<DiscreteMorphProps> = ({
    pageOpacity
 }) => {
    const invalidate = useThree(s => s.invalidate)
-   // console.log(textures)
 
    const meshRef = React.useRef<THREE.Mesh>(null)
    const shaderRef = React.useRef<THREE.ShaderMaterial>(null)
+
+   // const [transitionId, setTransitionId] = React.useState(0)
+   // const [animating, setAnimating] = React.useState(false)
 
    React.useLayoutEffect(() => {
       updateShader(
@@ -53,20 +55,22 @@ const DiscreteMorph: React.FC<DiscreteMorphProps> = ({
       )
 
       return () => subscription()
-   }, [count, textures])
+   }, [
+      count,
+      textures
+      //  animating
+   ])
 
-   {
-      // React.useEffect(() => {
-      //    transition(
-      //       transitionId,
-      //       shaderRef,
-      //       textures,
-      //       invalidate,
-      //       dataTextures,
-      //       setAnimating
-      //    )
-      // }, [transitionId, textures, invalidate])
-   }
+   // React.useEffect(() => {
+   //    transition(
+   //       transitionId,
+   //       shaderRef,
+   //       textures,
+   //       invalidate,
+   //       dataTextures,
+   //       setAnimating
+   //    )
+   // }, [transitionId, textures, invalidate])
 
    return (
       <mesh
