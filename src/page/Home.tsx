@@ -1,54 +1,86 @@
 import useStore from "@src/state/store"
+import { useStaggeredOpacity } from "@src/utils/functions"
 import React from "react"
 import styled from "styled-components"
 
 type Props = {}
 
 const Home = (props: Props) => {
-   const ref = React.useRef<HTMLImageElement>(null)
+   const [navRef, handleNavStagger] = useStaggeredOpacity(
+      false,
+      [0.0, 0.05],
+      true
+   )
 
    React.useEffect(() => {
       const subscription = useStore.subscribe(
          state => state.SCROLL_VALUE,
          scrollValue => {
-            if (scrollValue < 0.04) {
-               ref.current.style.opacity = "1"
-            } else {
-               ref.current.style.opacity = "0"
-            }
+            console.log("HOME SCROLL")
+
+            handleNavStagger(scrollValue)
          }
       )
 
-      return () => subscription()
-   }, [])
+      return () => {
+         console.log("UNMOUNT")
 
+         return subscription()
+      }
+   }, [handleNavStagger])
    return (
-      <Wr ref={ref}>
+      <Wr ref={navRef}>
          <Header>Home</Header>
          <Para>
-            Sculpture studios at the Academy of Artificial Arts hums with the
+            <span>
+               Sculpture studios at the Academy of Artificial Arts hums with the
+            </span>
             <br />
-            rhythmic movements of robotic arms, each meticulously crafted to
+            <span>
+               rhythmic movements of robotic arms, each meticulously crafted to
+            </span>
             <br />
-            mold and shape raw materials with artistic precision. Robots,
+            <span>
+               mold and shape raw materials with artistic precision. Robots,
+            </span>
             <br />
-            adorned in vibrant colors and intricate patterns, tirelessly
+            <span>
+               adorned in vibrant colors and intricate patterns, tirelessly
+            </span>
             <br />
-            manipulate clay, marble, and synthetic polymers, their algorithms
+            <span>
+               manipulate clay, marble, and synthetic polymers, their algorithms
+            </span>
             <br />
-            transforming lifeless matter into captivating forms. Employing these
+            <span>
+               transforming lifeless matter into captivating forms. Employing
+               these
+            </span>
             <br />
-            same techniques, the robots also modify their own mechanical parts,
+            <span>
+               same techniques, the robots also modify their own mechanical
+               parts,
+            </span>
             <br />
-            transforming their bodies into living, evolving artworks that become
+            <span>
+               transforming their bodies into living, evolving artworks that
+               become
+            </span>
             <br />
-            the captivating centerpiece of their own performance. In this
+            <span>
+               the captivating centerpiece of their own performance. In this
+            </span>
             <br />
-            evolving feedback loop of technology and artistry, the sculptures
+            <span>
+               evolving feedback loop of technology and artistry, the sculptures
+            </span>
             <br />
-            born from mechanical curiosities tell stories of perceptions of the
+            <span>
+               born from mechanical curiosities tell stories of perceptions of
+               the
+            </span>
             <br />
-            artificial mind.
+            <span>artificial mind.</span>
          </Para>
       </Wr>
    )

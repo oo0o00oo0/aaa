@@ -17,9 +17,9 @@ const ContinuousMorph = ({ textures, dataTextures, count }) => {
    const meshRef = React.useRef<THREE.Mesh>()
    const shaderRef = React.useRef<THREE.ShaderMaterial>()
 
-   React.useLayoutEffect(() => {
-      window.scrollTo(0, 0)
-   }, [])
+   // React.useLayoutEffect(() => {
+   //    window.scrollTo(0, 0)
+   // }, [])
 
    React.useEffect(() => {
       const unsub = useStore.subscribe(

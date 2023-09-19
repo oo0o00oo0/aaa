@@ -27,6 +27,7 @@ export const updateShader = (
    opacity: number[]
 ) => {
    const textureIndex = Math.floor(SCROLL_VALUE * count)
+
    shaderRef.current.uniforms.uOpacity_0.value = opacity[textureIndex % count]
    shaderRef.current.uniforms.uOpacity_1.value =
       opacity[(textureIndex + 1) % count]
@@ -41,6 +42,8 @@ export const updateShader = (
       dataTextures[(textureIndex + 1) % count]
 
    const blendFactor = SCROLL_VALUE * count - textureIndex
+
+   // console.log({ SCROLL_VALUE, count, textureIndex, blendFactor })
 
    shaderRef.current.uniforms.uBlend.value = piecewiseBezier(blendFactor)
 

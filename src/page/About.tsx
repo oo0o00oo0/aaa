@@ -1,41 +1,32 @@
 import useStore from "@src/state/store"
+import { useStaggeredOpacity } from "@src/utils/functions"
 import React from "react"
 import styled from "styled-components"
 
 type Props = {}
 
 const About = (props: Props) => {
-   const ref = React.useRef<HTMLImageElement>(null)
-
-   const ref_1 = React.useRef<HTMLImageElement>(null)
-   const ref_2 = React.useRef<HTMLImageElement>(null)
+   const [navRef, handleNavStagger] = useStaggeredOpacity(
+      true,
+      [0.05, 0.1],
+      false
+   )
 
    React.useEffect(() => {
       const subscription = useStore.subscribe(
          state => state.SCROLL_VALUE,
          scrollValue => {
-            if (scrollValue < 0.22) {
-               ref_1.current.style.opacity = "1"
-               ref_2.current.style.opacity = "0"
-               ref_2.current.style.transitionDelay = "0s"
-               ref_1.current.style.transitionDelay = "0.3s"
-            } else {
-               ref_1.current.style.opacity = "0"
-               ref_2.current.style.opacity = "1"
-               ref_1.current.style.transitionDelay = "0s"
-               ref_2.current.style.transitionDelay = "0.3s"
-            }
+            handleNavStagger(scrollValue)
          }
       )
 
       return () => subscription()
-   }, [])
-
+   }, [handleNavStagger])
    return (
-      <>
-         <Header ref={ref}>ABOUT</Header>
+      <Wr ref={navRef}>
+         <Header>ABOUT</Header>
 
-         <Para ref={ref_1}>
+         <Para>
             Sculpture studios at the Academy of Artificial Arts hums with the
             rhythmic movements of robotic arms, each meticulously crafted to
             mold and shape raw materials with artistic precision. Robots,
@@ -49,20 +40,21 @@ const About = (props: Props) => {
             born from mechanical curiosities tell stories of perceptions of the
             artificial mind.
          </Para>
-         <Para
-            style={{ opacity: 0 }}
-            ref={ref_2}>
-            SOME OTHER TEXT
-         </Para>
-      </>
+      </Wr>
    )
 }
 
+const Wr = styled.div`
+   grid-column: 1 / 4;
+
+   * > {
+      opacity: 0;
+   }
+`
 const Header = styled.h1`
    grid-area: header;
    font-family: WONKY;
-   grid-row: 1 / 2;
-   grid-column: 1 / 3;
+
    display: flex;
    justify-content: flex-start;
    align-items: flex-end;
@@ -70,11 +62,10 @@ const Header = styled.h1`
 
 const Para = styled.p`
    grid-row: 2 / 3;
-   grid-column: 1 / 3;
+
    font-size: 2rem;
    font-family: Cormorant;
    text-align: left;
-   transition: opacity 0.3s ease-in-out;
 `
 
 const LoadingPlaceholder = styled.div`

@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import useStore from "@src/state/store"
-import { stagger } from "@src/utils/functions/helper-functions"
+import { useStaggeredOpacity } from "@src/utils/functions/helper-functions"
 import Layout from "@src/layout/Layout"
 
 type LetterProps = {
@@ -9,20 +9,20 @@ type LetterProps = {
 }
 
 function NavigationBar() {
-   const titleRef = React.useRef(null)
-   const navRef = React.useRef(null)
+   const [titleRef, handleTitleStagger] = useStaggeredOpacity(false, [0, 0.05])
+   const [navRef, handleNavStagger] = useStaggeredOpacity(true, [0.05, 0.1])
 
    React.useEffect(() => {
       const subscription = useStore.subscribe(
          state => state.SCROLL_VALUE,
          scrollValue => {
-            stagger(titleRef, scrollValue, false, [0, 0.05])
-            stagger(navRef, scrollValue, true, [0.05, 0.1])
+            handleTitleStagger(scrollValue)
+            handleNavStagger(scrollValue)
          }
       )
 
       return () => subscription()
-   }, [])
+   }, [handleTitleStagger, handleNavStagger])
 
    return (
       <Wrapper>

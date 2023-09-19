@@ -11,14 +11,6 @@ import ScrollLayout from "./components/dom/ScrollLayout/ScrollLayout"
 import { routes } from "./config/app-config"
 
 export const App = () => {
-   const setScrollValue = useStore(s => s.setScrollValue)
-   const setScrollVelocity = useStore(s => s.setScrollVelocity)
-
-   useLenis(({ scroll, velocity }) => {
-      setScrollVelocity(velocity)
-      setScrollValue(scroll / (window.innerHeight * (routes.length - 1)))
-   })
-
    return (
       <>
          <ReactLenis root>

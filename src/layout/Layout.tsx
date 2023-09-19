@@ -2,7 +2,7 @@ import { gsap } from "gsap"
 import React from "react"
 import styled from "styled-components"
 
-function Layout({ children }) {
+function Layout({ children, index }) {
    const ref = React.useRef()
    React.useEffect(() => {
       gsap.to(ref.current, {
@@ -13,12 +13,19 @@ function Layout({ children }) {
       })
    }, [])
 
-   return <Grid ref={ref}>{children}</Grid>
+   return (
+      <Grid
+         style={{ top: `${index * 100}vh` }}
+         ref={ref}>
+         {children}
+      </Grid>
+   )
 }
 
 export default Layout
 
 const Grid = styled.div`
+   border: red solid 1px;
    padding: 2vw;
    opacity: 0;
    font-size: 2rem;

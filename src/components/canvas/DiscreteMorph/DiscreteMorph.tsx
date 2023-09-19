@@ -21,12 +21,12 @@ const DiscreteMorph: React.FC<DiscreteMorphProps> = ({
    // const [transitionId, setTransitionId] = React.useState(0)
    // const [animating, setAnimating] = React.useState(false)
 
-   React.useLayoutEffect(() => {
+   React.useEffect(() => {
       updateShader(
          shaderRef,
          textures,
          dataTextures,
-         0,
+         window.scrollY / (window.innerHeight * (count - 1)),
          invalidate,
          count,
          pageOpacity
