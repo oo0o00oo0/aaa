@@ -8,7 +8,7 @@ type Props = {}
 const About = (props: Props) => {
    const [navRef, handleNavStagger] = useStaggeredOpacity(
       true,
-      [0.05, 0.1],
+      [0.2, 0.4],
       false
    )
 
@@ -46,6 +46,7 @@ const About = (props: Props) => {
 
 const Wr = styled.div`
    grid-column: 1 / 4;
+   grid-row: 3 / 4;
 
    * > {
       opacity: 0;
@@ -61,20 +62,11 @@ const Header = styled.h1`
 `
 
 const Para = styled.p`
-   grid-row: 2 / 3;
+   /* grid-row: 2 / 3; */
 
    font-size: 2rem;
    font-family: Cormorant;
    text-align: left;
-`
-
-const LoadingPlaceholder = styled.div`
-   width: 100%; // Adjust according to your needs
-   height: 300px; // Adjust according to your needs
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   background-color: #e0e0e0; // Placeholder background
 `
 
 export default About

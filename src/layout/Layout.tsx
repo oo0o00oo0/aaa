@@ -25,6 +25,7 @@ function Layout({ children, index }) {
 export default Layout
 
 const Grid = styled.div`
+   position: absolute;
    border: red solid 1px;
    padding: 2vw;
    opacity: 0;

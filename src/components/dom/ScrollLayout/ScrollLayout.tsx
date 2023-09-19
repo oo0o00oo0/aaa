@@ -1,5 +1,4 @@
-import React, { Suspense, useEffect, useMemo } from "react"
-import styled from "styled-components"
+import { Suspense, useEffect, useMemo } from "react"
 import { routes } from "@src/config/app-config"
 import Layout from "@src/layout/Layout"
 import { Route, useLocation } from "wouter"
@@ -23,21 +22,19 @@ function ScrollLayout() {
    )
 
    return (
-      <Wr style={{ height: `${routes.length * 100}vh` }}>
+      <div style={{ height: `${routes.length * 100}vh` }}>
          <Suspense fallback={<div>Loading...</div>}>{routeComponents}</Suspense>
-      </Wr>
+      </div>
    )
 }
-
-const Wr = styled.div`
-   position: absolute;
-`
 
 const useScrollNavigation = routes => {
    const [location, navigate] = useLocation()
    const { setScrollValue, setScrollVelocity } = useStore()
 
    useLenis(({ scroll, velocity }) => {
+      // console.log(scroll / (window.innerHeight * (routes.length - 1)))
+
       setScrollVelocity(velocity)
       setScrollValue(scroll / (window.innerHeight * (routes.length - 1)))
    })
@@ -47,7 +44,7 @@ const useScrollNavigation = routes => {
       if (index !== -1) {
          window.scrollTo(0, index * window.innerHeight + 1)
       }
-   }, [location, routes])
+   }, [])
 
    useEffect(() => {
       const subscription = useStore.subscribe(
@@ -60,7 +57,7 @@ const useScrollNavigation = routes => {
                0,
                routes.length - 1
             )
-            const targetRoute = routes[Math.floor(mappedValue)]
+            const targetRoute = routes[Math.floor(mappedValue * 2)]
             if (targetRoute && targetRoute.route !== location) {
                navigate(targetRoute.route)
             }
