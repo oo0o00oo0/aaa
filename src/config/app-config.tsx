@@ -20,30 +20,35 @@ export const routes = [
       route: "/",
       title: "Home",
       component: <Home />,
-      opacity: 1
+      opacity: 1,
+      renderPercentage: 1
    },
    {
       route: "/about",
       title: "About",
       component: <About />,
-      opacity: 1
+      opacity: 1,
+      renderPercentage: 3
    },
    {
       route: "/programmes",
       title: "Programmes",
       component: <Programmes />,
-      opacity: 0
+      opacity: 0,
+      renderPercentage: 1
    },
    {
       route: "/contact",
       title: "Contact",
       component: <Contact />,
-      opacity: 1
+      opacity: 1,
+      renderPercentage: 1
    },
    {
       route: "/contact",
       title: "Contact123",
       component: <Contact />,
-      opacity: 1
+      opacity: 1,
+      renderPercentage: 1
    }
 ]

@@ -6,43 +6,30 @@ import styled from "styled-components"
 type Props = {}
 
 const Home = (props: Props) => {
-   const [navRef, handleNavStagger] = useStaggeredOpacity(
-      false,
-      [0.0, 0.05],
-      true
-   )
+   const [navRef, handleNavStagger] = useStaggeredOpacity([
+      0.0, 0.0, 0.01, 0.03
+   ])
 
    React.useEffect(() => {
       const subscription = useStore.subscribe(
          state => state.SCROLL_VALUE,
          scrollValue => {
-            console.log("HOME SCROLL")
-
             handleNavStagger(scrollValue)
          }
       )
 
-      return () => {
-         console.log("UNMOUNT")
-
-         return subscription()
-      }
+      return () => subscription()
    }, [handleNavStagger])
    return (
-      <Wr ref={navRef}>
-         <Header>Home</Header>
-         <Para>
+      <Wr>
+         <Para ref={navRef}>
             <span>
-               Sculpture studios at the Academy of Artificial Arts hums with the
+               Sculpture studios at the Academy of Artificial Arts hums
             </span>
             <br />
-            <span>
-               rhythmic movements of robotic arms, each meticulously crafted to
-            </span>
+            <span>rhythmic movements of robotic arms, each meticulously</span>
             <br />
-            <span>
-               mold and shape raw materials with artistic precision. Robots,
-            </span>
+            <span>mold and shape raw materials with artistic precision.</span>
             <br />
             <span>
                adorned in vibrant colors and intricate patterns, tirelessly
@@ -51,36 +38,6 @@ const Home = (props: Props) => {
             <span>
                manipulate clay, marble, and synthetic polymers, their algorithms
             </span>
-            <br />
-            <span>
-               transforming lifeless matter into captivating forms. Employing
-               these
-            </span>
-            <br />
-            <span>
-               same techniques, the robots also modify their own mechanical
-               parts,
-            </span>
-            <br />
-            <span>
-               transforming their bodies into living, evolving artworks that
-               become
-            </span>
-            <br />
-            <span>
-               the captivating centerpiece of their own performance. In this
-            </span>
-            <br />
-            <span>
-               evolving feedback loop of technology and artistry, the sculptures
-            </span>
-            <br />
-            <span>
-               born from mechanical curiosities tell stories of perceptions of
-               the
-            </span>
-            <br />
-            <span>artificial mind.</span>
          </Para>
       </Wr>
    )
@@ -94,18 +51,10 @@ const Wr = styled.div`
    font-size: 2rem;
    font-family: Cormorant;
    text-align: left;
-   transition: opacity 0.1s ease-in-out;
 `
 
-const Header = styled.h1`
-   /* border: red solid 2px; */
-   grid-area: header;
-   font-family: WONKY;
-   grid-row: 2 / 3;
-   grid-column: 1 / 3;
-   display: flex;
-   justify-content: flex-start;
-   align-items: flex-end;
+const Para = styled.h3`
+   font-weight: 200;
+   font-size: 3rem;
+   /* font */
 `
-
-const Para = styled.p``

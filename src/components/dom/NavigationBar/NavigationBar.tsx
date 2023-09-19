@@ -9,8 +9,11 @@ type LetterProps = {
 }
 
 function NavigationBar() {
-   const [titleRef, handleTitleStagger] = useStaggeredOpacity(false, [0, 0.05])
-   const [navRef, handleNavStagger] = useStaggeredOpacity(true, [0.05, 0.1])
+   const [titleRef, handleTitleStagger] = useStaggeredOpacity([
+      0, 0, 0.025, 0.05
+   ])
+
+   const [navRef, handleNavStagger] = useStaggeredOpacity([0.05, 0.075, 1, 1])
 
    React.useEffect(() => {
       const subscription = useStore.subscribe(
@@ -26,8 +29,6 @@ function NavigationBar() {
 
    return (
       <Wrapper>
-         {/* <Bar /> */}
-         {/* <Bar2 /> */}
          <Navigation ref={navRef}>
             {"AAA".split("").map((letter, index) => (
                <Letter
@@ -85,26 +86,4 @@ const Wrapper = styled.div`
 
    color: #c1140a;
 `
-
-// const Bar2 = styled.div`
-//    top: 0;
-//    left: 0;
-//    z-index: 9;
-//    position: fixed;
-//    height: 60vh;
-//    width: 100%;
-//    background-color: #eaeaea;
-//    /* border: gray solid 1px; */
-// `
-// const Bar = styled.div`
-//    top: 60vh;
-//    left: 0;
-//    z-index: 9;
-//    position: fixed;
-//    height: 4vh;
-//    width: 100%;
-//    background-image: linear-gradient(to top, rgba(255, 0, 0, 0), #eaeaea);
-//    /* background-image: linear-gradient(to top, rgba(255, 0, 0, 0), #eaeaea); */
-//    /* border-bottom: gray solid 1px; */
-// `
 export default NavigationBar
