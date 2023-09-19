@@ -10,10 +10,10 @@ type LetterProps = {
 
 function NavigationBar() {
    const [titleRef, handleTitleStagger] = useStaggeredOpacity([
-      0, 0, 0.025, 0.05
+      0, 0, 0.01, 0.04
    ])
 
-   const [navRef, handleNavStagger] = useStaggeredOpacity([0.05, 0.075, 1, 1])
+   const [navRef, handleNavStagger] = useStaggeredOpacity([0.04, 0.05, 1, 1])
 
    React.useEffect(() => {
       const subscription = useStore.subscribe(

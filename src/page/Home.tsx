@@ -7,7 +7,7 @@ type Props = {}
 
 const Home = (props: Props) => {
    const [navRef, handleNavStagger] = useStaggeredOpacity([
-      0.0, 0.0, 0.01, 0.03
+      0.0, 0.0, 0.025, 0.04
    ])
 
    React.useEffect(() => {

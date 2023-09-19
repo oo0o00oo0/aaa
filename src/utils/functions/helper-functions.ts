@@ -19,7 +19,12 @@ export const useStaggeredOpacity = (
       }
 
       const arr = getAllChildren(ref.current)
+
       const length = arr.length
+      // if (!forceFlip) {
+      //    arr.reverse()
+      // }
+      //  else
 
       if (scrollValue > range[2]) {
          arr.reverse()
