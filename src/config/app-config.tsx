@@ -11,8 +11,10 @@ export const texturePaths = [
    "/atlas/00_HERO.webp",
    "/atlas/atlas.webp",
    "/atlas/atlas.webp",
-   "/atlas/AP_1.webp",
-   "/atlas/atlas_2.webp"
+   "/atlas/atlas.webp",
+   "/atlas/atlas.webp"
+   // "/atlas/AP_1.webp"
+   // "/atlas/atlas_2.webp"
 ]
 
 export const routes = [

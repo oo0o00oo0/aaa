@@ -48,14 +48,13 @@ export default Home
 const Wr = styled.div`
    grid-row: 3 / 4;
    grid-column: 1 / 4;
-   font-size: 2rem;
    font-family: Cormorant;
    text-align: left;
    /* border: red solid 1px; */
 `
 
 const Para = styled.h3`
-   font-weight: 200;
-   font-size: 3rem;
+   font-weight: 500;
+   font-size: 3.2rem;
    /* font */
 `

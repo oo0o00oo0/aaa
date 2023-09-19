@@ -1,15 +1,9 @@
-import Layout from "@src/layout/Layout"
-import React, { useState } from "react"
 import styled from "styled-components"
 
 type Props = {}
 
-const Programmes = ({ index }) => {
-   return (
-      <Layout index={index}>
-         <Header>PROGRAMMES</Header>
-      </Layout>
-   )
+const Programmes = () => {
+   return <Header>PROGRAMMES</Header>
 }
 
 const Header = styled.h1`

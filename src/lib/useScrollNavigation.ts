@@ -1,44 +1,46 @@
-// import { useState, useEffect, useLayoutEffect } from "react"
-// import { useLocation } from "wouter"
+import useStore from "@src/state/store"
+import { useLenis } from "@studio-freight/react-lenis"
+import { useEffect } from "react"
 
-// const useScrollNavigation = pages => {
-//    const handlePageChange = () => {
-//       const currentSection = Math.floor(window.scrollY / sectionHeight)
+const useScrollNavigation = routes => {
+   // const [location, navigate] = useLocation()
+   const { setScrollValue, setScrollVelocity } = useStore()
 
-//       if (
-//          currentSection >= 0 &&
-//          currentSection < totalSections &&
-//          pages[currentSection] !== page
-//       ) {
-//          setPage(pages[currentSection])
-//       }
-//    }
-//    const totalSections = pages.length
-//    const sectionHeight = window.innerHeight // Assuming each page section is of window's height
-//    const [location, setLocation] = useLocation()
-//    const [page, setPage] = useState(location)
+   useLenis(({ scroll, velocity }) => {
+      console.log(scroll / (window.innerHeight * (routes.length - 1)))
 
-//    useEffect(() => {
-//       window.addEventListener("scroll", handlePageChange)
+      setScrollVelocity(velocity)
+      setScrollValue(scroll / (window.innerHeight * (routes.length - 1)))
+   })
 
-//       return () => {
-//          window.removeEventListener("scroll", handlePageChange)
-//       }
-//    }, [page, totalSections, sectionHeight, pages])
+   useEffect(() => {
+      window.scrollTo(0, 0)
+      // const index = routes.findIndex(route => route.route === location)
+      // if (index !== -1) {
+      //    window.scrollTo(0, index * window.innerHeight + 1)
+      // }
+   }, [])
 
-//    useEffect(() => {
-//       setLocation(page)
-//    }, [page, setLocation])
+   // useEffect(() => {
+   //    const subscription = useStore.subscribe(
+   //       state => state.SCROLL_VALUE,
+   //       scrollValue => {
+   //          const mappedValue = map_range(
+   //             scrollValue,
+   //             0,
+   //             1,
+   //             0,
+   //             routes.length - 1
+   //          )
+   //          const targetRoute = routes[Math.floor(mappedValue * 2)]
+   //          if (targetRoute && targetRoute.route !== location) {
+   //             navigate(targetRoute.route)
+   //          }
+   //       }
+   //    )
 
-//    useLayoutEffect(() => {
-//       const currentPageIndex = pages.findIndex(p => p === location)
+   //    return () => subscription()
+   // }, [location, navigate, routes])
+}
 
-//       const scrollPosition = currentPageIndex * sectionHeight
-
-//       // window.scrollTo(0, scrollPosition)
-//    }, [])
-
-//    return page
-// }
-
-// export default useScrollNavigation
+export default useScrollNavigation
